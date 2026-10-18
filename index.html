@@ -772,75 +772,165 @@
       from { opacity: 0; transform: translateY(4px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .drive-frame-wrapper {
-      background: #0b1120;
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
-    }
-    .drive-frame-wrapper iframe {
+    /* ══════ 成果相片與影片 3秒投影片輪播器 ══════ */
+    .carousel-container {
+      position: relative;
       width: 100%;
       height: 520px;
+      max-height: 75vh;
+      background: #070a13;
+      border-radius: 14px;
+      border: 1px solid var(--card-border);
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @media (max-width: 640px) {
+      .carousel-container {
+        height: 340px;
+      }
+    }
+    .carousel-track {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    .carousel-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+      transform: scale(0.98);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #070a13;
+    }
+    .carousel-slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+      z-index: 2;
+    }
+    .carousel-slide img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .carousel-slide .slide-caption {
+      position: absolute;
+      bottom: 2.8rem;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(7, 10, 19, 0.85));
+      color: #f8fafc;
+      padding: 1.2rem 1.5rem 0.6rem;
+      font-size: 0.95rem;
+      text-align: center;
+      font-weight: 600;
+    }
+    .video-player-frame {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+    }
+    .video-player-frame iframe {
+      width: 100%;
+      height: 100%;
       border: none;
       display: block;
-      background: #ffffff;
     }
-    .drive-hint-bar {
+
+    /* 左右符號切換按鈕 ❮ ❯ */
+    .carousel-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      font-size: 1.5rem;
+      font-weight: bold;
+      border-radius: 50%;
+      cursor: pointer;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-      padding: 0.75rem 1.2rem;
-      background: rgba(15, 23, 42, 0.95);
-      border-top: 1px solid var(--card-border);
-      font-size: 0.84rem;
-      color: var(--text-muted);
+      justify-content: center;
+      z-index: 10;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+      line-height: 1;
+      user-select: none;
     }
-    .drive-hint-bar a {
-      color: var(--steam-t);
-      text-decoration: none;
-      font-weight: 700;
-      display: inline-flex;
+    .carousel-nav-btn:hover {
+      background: var(--steam-t);
+      color: #070a13;
+      border-color: var(--steam-t);
+      transform: translateY(-50%) scale(1.1);
+    }
+    .carousel-nav-btn.prev-btn {
+      left: 1rem;
+    }
+    .carousel-nav-btn.next-btn {
+      right: 1rem;
+    }
+
+    /* 底部指示區與頁碼 */
+    .carousel-footer-bar {
+      position: absolute;
+      bottom: 0.8rem;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
       align-items: center;
-      gap: 0.3rem;
+      gap: 1rem;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .carousel-dots {
+      display: flex;
+      gap: 0.45rem;
+      pointer-events: auto;
+    }
+    .carousel-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      border: none;
+      cursor: pointer;
+      padding: 0;
       transition: all 0.2s;
     }
-    .drive-hint-bar a:hover {
-      color: #7dd3fc;
-      text-decoration: underline;
+    .carousel-dot.active {
+      background: var(--steam-t);
+      transform: scale(1.25);
+      box-shadow: 0 0 8px var(--steam-t);
     }
-    .setup-guide-box {
-      background: rgba(56, 189, 248, 0.08);
-      border: 1px dashed rgba(56, 189, 248, 0.4);
-      border-radius: 10px;
-      padding: 1.1rem 1.4rem;
-      margin-bottom: 1.2rem;
-      color: #cbd5e1;
-      font-size: 0.88rem;
-    }
-    .setup-guide-box h4 {
-      margin: 0 0 0.5rem 0;
-      color: var(--steam-t);
-      font-size: 0.98rem;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-    .setup-guide-box ol {
-      margin: 0;
-      padding-left: 1.4rem;
-      line-height: 1.7;
-    }
-    .setup-guide-box code {
-      background: rgba(15, 23, 42, 0.8);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 0.15rem 0.45rem;
-      border-radius: 4px;
-      color: #fcd34d;
-      font-family: monospace;
-      font-size: 0.85em;
+    .carousel-counter {
+      background: rgba(15, 23, 42, 0.85);
+      color: #94a3b8;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.2rem 0.65rem;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      pointer-events: auto;
     }
 
     footer {
@@ -1102,46 +1192,58 @@
       </div>
     </div>
 
-    <!-- 肆、社團成果照片和影片 (方案 A: Google Drive 雲端同步) -->
+    <!-- 肆、社團成果照片和影片 (3秒投影片輪播與單部影片播放) -->
     <div id="gallery" class="section-card">
       <div class="gallery-header">
         <h3>📸 社團成果照片和影片</h3>
         <div class="gallery-tabs">
-          <button type="button" class="gallery-tab active" onclick="switchGalleryTab('photos', this)">📷 成果照片庫</button>
-          <button type="button" class="gallery-tab" onclick="switchGalleryTab('videos', this)">🎬 動態影片庫</button>
+          <button type="button" class="gallery-tab active" onclick="switchGalleryTab('photos', this)">📷 成果相片投影片</button>
+          <button type="button" class="gallery-tab" onclick="switchGalleryTab('videos', this)">🎬 動態成果影片</button>
         </div>
       </div>
 
-      <!-- 照片資料夾檢視窗 -->
+      <!-- 照片投影片輪播展示窗 (每 3 秒自動切換，附 ❮ ❯ 輔助按鍵) -->
       <div id="gallery-panel-photos" class="gallery-panel active">
-        <div class="drive-frame-wrapper">
-          <iframe 
-            id="gdrive-photos-frame"
-            src="https://drive.google.com/embeddedfolderview?id=1dNWvwh8Jw7oEIhBP_CTclg3yRixHleGA#grid" 
-            title="Google Drive 成果照片庫"
-            loading="lazy"
-            allowfullscreen>
-          </iframe>
+        <div class="carousel-container" id="photo-carousel" onmouseenter="pausePhotoSlideshow()" onmouseleave="startPhotoSlideshow()">
+          <div class="carousel-track" id="photo-track">
+            <!-- 由 JavaScript 動態生成投影片 -->
+          </div>
+          
+          <!-- 上一張 / 下一張 輔助符號按鍵 -->
+          <button type="button" class="carousel-nav-btn prev-btn" onclick="prevPhoto()" aria-label="上一張照片">❮</button>
+          <button type="button" class="carousel-nav-btn next-btn" onclick="nextPhoto()" aria-label="下一張照片">❯</button>
+          
+          <!-- 底部頁碼與指示圓點 -->
+          <div class="carousel-footer-bar">
+            <div class="carousel-dots" id="photo-dots"></div>
+            <div class="carousel-counter" id="photo-counter">1 / 3</div>
+          </div>
         </div>
       </div>
 
-      <!-- 影片資料夾檢視窗 -->
+      <!-- 影片單部輪播展示窗 (附 ❮ ❯ 輔助按鍵) -->
       <div id="gallery-panel-videos" class="gallery-panel">
-        <div class="drive-frame-wrapper">
-          <iframe 
-            id="gdrive-videos-frame"
-            src="https://drive.google.com/embeddedfolderview?id=1ML2gpLb1OtzSbaWjrfjQXtr85lHlcHR3#grid" 
-            title="Google Drive 運轉影片庫"
-            loading="lazy"
-            allowfullscreen>
-          </iframe>
+        <div class="carousel-container" id="video-carousel">
+          <div class="video-player-frame" id="video-frame-container">
+            <iframe id="video-player" src="" title="社團活動成果影片" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          
+          <!-- 上一部 / 下一部 輔助符號按鍵 -->
+          <button type="button" class="carousel-nav-btn prev-btn" onclick="prevVideo()" aria-label="上一部影片">❮</button>
+          <button type="button" class="carousel-nav-btn next-btn" onclick="nextVideo()" aria-label="下一部影片">❯</button>
+          
+          <!-- 底部影片頁碼與指示圓點 -->
+          <div class="carousel-footer-bar">
+            <div class="carousel-dots" id="video-dots"></div>
+            <div class="carousel-counter" id="video-counter">1 / 3</div>
+          </div>
         </div>
       </div>
     </div>
 
   </div>
 
-  <!-- 點擊展開/收合 STEAM 卡片、四大主題與雲端相簿之互動腳本 -->
+  <!-- 點擊展開/收合 STEAM 卡片、四大主題與投影片輪播之互動腳本 -->
   <script>
     function toggleSteam(card) {
       const isExpanded = card.classList.contains('active');
@@ -1179,14 +1281,182 @@
       }
     }
 
-    // ══════ 方案 A: 雲端相簿與影片切換 ══════
+    // ══════ 成果相片與影片 3秒投影片輪播器 ══════
+    const photoList = [
+      { 
+        url: "media/photos/photo1.jpg", 
+        fallback: "https://lh3.googleusercontent.com/d/1oIUx3kGMuSaWJhtMUhhbethf1dvYLh9t", 
+        title: "學生成品實體展示 · 機構細節 (IMG_3203)" 
+      },
+      { 
+        url: "media/photos/photo2.jpg", 
+        fallback: "https://lh3.googleusercontent.com/d/11ksi83Mq-4-6zPwH2g1bP84dbDIF6tts", 
+        title: "學生成品實體展示 · 創作歷程 (IMG_3230)" 
+      },
+      { 
+        url: "media/photos/photo3.jpg", 
+        fallback: "https://lh3.googleusercontent.com/d/1WyvOygvN1A5JE5T23lJZCwX2NplSc8Fr", 
+        title: "學生成品實體展示 · 完成特寫 (IMG_3232)" 
+      }
+    ];
+
+    const videoList = [
+      { 
+        url: "https://drive.google.com/file/d/170uzpBTnfsLrvf8N46NIH-81B9j3akF3/preview", 
+        title: "機構動態運轉紀錄 01 (IMG_3229)" 
+      },
+      { 
+        url: "https://drive.google.com/file/d/1wT_7K-Ue0v9SordILZNXNT2TtH1oWozK/preview", 
+        title: "機構動態運轉紀錄 02 (IMG_3231)" 
+      },
+      { 
+        url: "https://drive.google.com/file/d/1uuSxENwH60lrc9KulqANhURLs2lxg2Hi/preview", 
+        title: "機構動態運轉紀錄 03 (IMG_3233)" 
+      }
+    ];
+
+    let currentPhotoIdx = 0;
+    let photoTimer = null;
+    let currentVideoIdx = 0;
+
+    function initPhotoCarousel() {
+      const track = document.getElementById('photo-track');
+      const dotsContainer = document.getElementById('photo-dots');
+      if (!track) return;
+      track.innerHTML = '';
+      dotsContainer.innerHTML = '';
+
+      photoList.forEach((item, idx) => {
+        const slide = document.createElement('div');
+        slide.className = 'carousel-slide' + (idx === 0 ? ' active' : '');
+        slide.innerHTML = `<img src="${item.url}" alt="${item.title}" onerror="if(this.src!=='${item.fallback}'){this.src='${item.fallback}';}">` + 
+          (item.title ? `<div class="slide-caption">${item.title}</div>` : '');
+        track.appendChild(slide);
+
+        const dot = document.createElement('button');
+        dot.className = 'carousel-dot' + (idx === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', `第 ${idx + 1} 張照片`);
+        dot.onclick = () => goToPhoto(idx);
+        dotsContainer.appendChild(dot);
+      });
+
+      updatePhotoCounter();
+      startPhotoSlideshow();
+    }
+
+    function updatePhotoCounter() {
+      const counter = document.getElementById('photo-counter');
+      if (counter && photoList.length > 0) {
+        counter.textContent = `${currentPhotoIdx + 1} / ${photoList.length}`;
+      }
+    }
+
+    function goToPhoto(idx) {
+      if (photoList.length === 0) return;
+      const slides = document.querySelectorAll('#photo-track .carousel-slide');
+      const dots = document.querySelectorAll('#photo-dots .carousel-dot');
+      if (slides[currentPhotoIdx]) slides[currentPhotoIdx].classList.remove('active');
+      if (dots[currentPhotoIdx]) dots[currentPhotoIdx].classList.remove('active');
+
+      currentPhotoIdx = (idx + photoList.length) % photoList.length;
+
+      if (slides[currentPhotoIdx]) slides[currentPhotoIdx].classList.add('active');
+      if (dots[currentPhotoIdx]) dots[currentPhotoIdx].classList.add('active');
+      updatePhotoCounter();
+    }
+
+    function nextPhoto() {
+      goToPhoto(currentPhotoIdx + 1);
+    }
+
+    function prevPhoto() {
+      goToPhoto(currentPhotoIdx - 1);
+    }
+
+    function startPhotoSlideshow() {
+      pausePhotoSlideshow();
+      if (photoList.length > 1) {
+        photoTimer = setInterval(nextPhoto, 3000); // 每 3 秒換一張照片
+      }
+    }
+
+    function pausePhotoSlideshow() {
+      if (photoTimer) {
+        clearInterval(photoTimer);
+        photoTimer = null;
+      }
+    }
+
+    // 影片切換
+    function initVideoCarousel() {
+      const dotsContainer = document.getElementById('video-dots');
+      if (dotsContainer) {
+        dotsContainer.innerHTML = '';
+        videoList.forEach((_, idx) => {
+          const dot = document.createElement('button');
+          dot.className = 'carousel-dot' + (idx === 0 ? ' active' : '');
+          dot.setAttribute('aria-label', `第 ${idx + 1} 部影片`);
+          dot.onclick = () => goToVideo(idx);
+          dotsContainer.appendChild(dot);
+        });
+      }
+      updateVideoDisplay();
+    }
+
+    function updateVideoDisplay() {
+      const player = document.getElementById('video-player');
+      const counter = document.getElementById('video-counter');
+      const dots = document.querySelectorAll('#video-dots .carousel-dot');
+      if (!player) return;
+
+      if (videoList.length > 0) {
+        player.src = videoList[currentVideoIdx].url;
+        if (counter) counter.textContent = `${currentVideoIdx + 1} / ${videoList.length}`;
+        dots.forEach((dot, idx) => {
+          dot.classList.toggle('active', idx === currentVideoIdx);
+        });
+      }
+    }
+
+    function nextVideo() {
+      if (videoList.length <= 1) return;
+      currentVideoIdx = (currentVideoIdx + 1) % videoList.length;
+      updateVideoDisplay();
+    }
+
+    function prevVideo() {
+      if (videoList.length <= 1) return;
+      currentVideoIdx = (currentVideoIdx - 1 + videoList.length) % videoList.length;
+      updateVideoDisplay();
+    }
+
+    function goToVideo(idx) {
+      currentVideoIdx = idx;
+      updateVideoDisplay();
+    }
+
     function switchGalleryTab(panelName, btn) {
       document.querySelectorAll('.gallery-tab').forEach(b => b.classList.remove('active'));
       document.querySelectorAll('.gallery-panel').forEach(p => p.classList.remove('active'));
       btn.classList.add('active');
       const targetPanel = document.getElementById('gallery-panel-' + panelName);
-      if (targetPanel) targetPanel.classList.add('active');
+      if (targetPanel) {
+        targetPanel.classList.add('active');
+        if (panelName === 'photos') {
+          startPhotoSlideshow();
+        } else {
+          pausePhotoSlideshow();
+          const player = document.getElementById('video-player');
+          if (player && !player.src) updateVideoDisplay();
+        }
+      }
     }
+
+    // 初始化輪播
+    document.addEventListener('DOMContentLoaded', () => {
+      initPhotoCarousel();
+      initVideoCarousel();
+    });
   </script>
 </body>
 </html>
