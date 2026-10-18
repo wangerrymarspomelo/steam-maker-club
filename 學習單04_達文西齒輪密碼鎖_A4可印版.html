@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>【學習單 04】瘋狂創客密室逃脫：達文西的齒輪密碼鎖</title>
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 12mm 15mm;
+    }
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+      color: #111;
+      background: #f8fafc;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.5;
+    }
+    .page-sheet {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 24px 28px;
+      border: 2px solid #334155;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+    
+    /* 頂部標題與警報 */
+    .sheet-header {
+      border-bottom: 2px solid #0f172a;
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+    }
+    .sheet-tag {
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: #64748b;
+      text-transform: uppercase;
+    }
+    .sheet-title {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #0f172a;
+      margin: 4px 0 8px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .info-bar {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.92rem;
+      font-weight: 700;
+      background: #f1f5f9;
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+    }
+    
+    /* 警報欄 */
+    .alert-banner {
+      background: #fff1f2;
+      border: 1.5px solid #fda4af;
+      border-left: 6px solid #e11d48;
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin-bottom: 16px;
+      font-size: 0.88rem;
+      color: #9f1239;
+      font-weight: 600;
+    }
+
+    /* 四大題目網格 2x2 */
+    .puzzles-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .puzzle-card {
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 12px;
+      background: #fafafa;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .puzzle-title {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 6px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-bottom: 1px dashed #cbd5e1;
+      padding-bottom: 4px;
+    }
+    .puzzle-desc {
+      font-size: 0.84rem;
+      color: #334155;
+      margin: 0 0 8px 0;
+      line-height: 1.45;
+    }
+    .diagram-box {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 8px;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .diagram-box svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+    .calc-area {
+      background: #f8fafc;
+      border: 1px dashed #94a3b8;
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 0.82rem;
+      margin-bottom: 6px;
+    }
+    .answer-box {
+      background: #eff6ff;
+      border: 1.5px solid #bfdbfe;
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: #1e3a8a;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .fill-blank {
+      display: inline-block;
+      width: 45px;
+      height: 28px;
+      line-height: 26px;
+      border: 2px solid #2563eb;
+      background: #fff;
+      border-radius: 4px;
+      text-align: center;
+      font-size: 1.15rem;
+      color: #0f172a;
+    }
+
+    /* 底部通關密碼欄 */
+    .final-passcode-bar {
+      border: 2px solid #0f172a;
+      border-radius: 8px;
+      padding: 12px 18px;
+      background: #f8fafc;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .code-boxes {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .code-box {
+      width: 44px;
+      height: 48px;
+      line-height: 44px;
+      border: 2.5px solid #0f172a;
+      background: #fff;
+      border-radius: 6px;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #0f172a;
+    }
+    .stamp-box {
+      width: 110px;
+      height: 52px;
+      border: 2px dashed #94a3b8;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: #64748b;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    /* 列印按鈕（列印時自動隱藏） */
+    .print-bar {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .print-btn {
+      background: #0f172a;
+      color: #fff;
+      border: none;
+      padding: 10px 22px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .print-btn:hover {
+      background: #334155;
+    }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .page-sheet { border: 2px solid #000; box-shadow: none; padding: 10px 14px; max-width: 100%; }
+      .print-bar { display: none !important; }
+      .final-passcode-bar { border-color: #000; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="print-bar">
+    <button class="print-btn" onclick="window.print()">🖨️ 列印此學習單 (建議雙面或單面 A4 影印)</button>
+  </div>
+
+  <div class="page-sheet">
+    <!-- 頂部資訊欄 -->
+    <div class="sheet-header">
+      <div class="sheet-tag">STEAM Maker Adventure · 社團第 06 週 解謎篇</div>
+      <div class="sheet-title">
+        <span>🔐【學習單 04】達文西的齒輪密碼鎖（密室逃脫破譯卡）</span>
+      </div>
+      <div class="info-bar">
+        <span>姓名：＿＿＿＿＿＿＿＿</span>
+        <span>桌號：第【＿＿】大桌</span>
+        <span>同桌組員：＿＿＿＿、＿＿＿＿</span>
+        <span>破譯時間：＿＿分鐘</span>
+      </div>
+    </div>
+
+    <!-- 緊急警報背景情境 -->
+    <div class="alert-banner">
+      🚨 <strong>情境簡報</strong>：達文西工坊的氣閘大門將於 <strong>40 分鐘後鎖死</strong>！本桌 6 位創客為命運共同體，請兩人一組分工推導下方 4 道物理題目，拼湊出 <strong>4 位數通關密碼</strong> 率先向指導教師通關逃脫！
+    </div>
+
+    <!-- 四大題目網格 -->
+    <div class="puzzles-grid">
+
+      <!-- 題目 1：齒輪傳動方向 -->
+      <div class="puzzle-card">
+        <div>
+          <div class="puzzle-title">⚙️ 謎題一：齒輪傳動方向（力學機構）</div>
+          <p class="puzzle-desc">
+            輸入齒輪為「順時針旋轉」。傳動鏈共有 <strong>8 顆齒輪</strong> 依次相互嚙合（1號 ➜ 2號 ➜ ... ➜ 8號）。
+          </p>
+          <div class="diagram-box">
+            <svg width="280" height="42" viewBox="0 0 280 42">
+              <g fill="#f1f5f9" stroke="#334155" stroke-width="1.5">
+                <circle cx="18" cy="21" r="14" fill="#fed7aa"/>
+                <circle cx="48" cy="21" r="14"/>
+                <circle cx="78" cy="21" r="14"/>
+                <circle cx="108" cy="21" r="14"/>
+                <circle cx="138" cy="21" r="14"/>
+                <circle cx="168" cy="21" r="14"/>
+                <circle cx="198" cy="21" r="14"/>
+                <circle cx="228" cy="21" r="14" fill="#fef08a"/>
+              </g>
+              <text x="18" y="25" font-size="10" text-anchor="middle" font-weight="bold">1(順)</text>
+              <text x="48" y="25" font-size="10" text-anchor="middle">2</text>
+              <text x="78" y="25" font-size="10" text-anchor="middle">3</text>
+              <text x="108" y="25" font-size="10" text-anchor="middle">4</text>
+              <text x="138" y="25" font-size="10" text-anchor="middle">5</text>
+              <text x="168" y="25" font-size="10" text-anchor="middle">6</text>
+              <text x="198" y="25" font-size="10" text-anchor="middle">7</text>
+              <text x="228" y="25" font-size="10" text-anchor="middle" font-weight="bold">8(?)</text>
+              <path d="M 12 12 A 8 8 0 0 1 24 12" fill="none" stroke="#ea580c" stroke-width="2" marker-end="url(#arrow)"/>
+            </svg>
+          </div>
+          <div class="calc-area">
+            💡 <strong>推導法則</strong>：相鄰齒輪旋轉方向必定相反。<br>
+            • 奇數齒輪：順時針<br>
+            • 偶數齒輪：逆時針<br>
+            第 8 號齒輪轉向為：□ 順時針(代碼 2)　☑ 逆時針(代碼 7)
+          </div>
+        </div>
+        <div class="answer-box">
+          <span>👉 密碼第 1 位數 ＝</span>
+          <span class="fill-blank"></span>
+        </div>
+      </div>
+
+      <!-- 題目 2：鏡面反射雷射路徑 -->
+      <div class="puzzle-card">
+        <div>
+          <div class="puzzle-title">⚡ 謎題二：鏡面反射雷射（幾何光學）</div>
+          <p class="puzzle-desc">
+            雷射從 <code>(0,2)</code> 水平向右射出，遭遇三面 45° 平面反射鏡：<br>
+            ① (3,2)向上反射 ➜ ② (3,6)向右反射 ➜ ③ (7,6)向下反射
+          </p>
+          <div class="diagram-box">
+            <svg width="260" height="75" viewBox="0 0 260 75">
+              <!-- 坐標方格 -->
+              <defs>
+                <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+                </pattern>
+              </defs>
+              <rect x="20" y="5" width="220" height="60" fill="url(#grid)" stroke="#94a3b8" stroke-width="1"/>
+              <!-- 光路 -->
+              <path d="M 20 45 L 80 45 L 80 15 L 160 15 L 160 65" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-dasharray="3,2"/>
+              <!-- 鏡子 -->
+              <line x1="73" y1="52" x2="87" y2="38" stroke="#2563eb" stroke-width="3"/>
+              <line x1="73" y1="8" x2="87" y2="22" stroke="#2563eb" stroke-width="3"/>
+              <line x1="153" y1="8" x2="167" y2="22" stroke="#2563eb" stroke-width="3"/>
+              <!-- 標記 -->
+              <text x="12" y="48" font-size="9" fill="#16a34a" font-weight="bold">發射</text>
+              <text x="160" y="73" font-size="9" fill="#dc2626" font-weight="bold" text-anchor="middle">X=7</text>
+            </svg>
+          </div>
+          <div class="calc-area">
+            💡 <strong>計算式</strong>：雷射垂直向下射入 X 軸座標為 <strong>7</strong>。<br>
+            密碼規則：終點 X 座標數值減 3（即：$7 - 3$）
+          </div>
+        </div>
+        <div class="answer-box">
+          <span>👉 密碼第 2 位數 ＝</span>
+          <span class="fill-blank"></span>
+        </div>
+      </div>
+
+      <!-- 題目 3：不對稱槓桿平衡 -->
+      <div class="puzzle-card">
+        <div>
+          <div class="puzzle-title">⚖️ 謎題三：不對稱槓桿（力矩定理）</div>
+          <p class="puzzle-desc">
+            槓桿全長 12 格，支點置於「第 4 格」處：<br>
+            • 左臂長 4 格，掛 <strong>6 個</strong> 砝碼（左力矩 $= 4 \times 6 = 24$）<br>
+            • 右臂長 8 格，需掛幾個砝碼 $X$ 才能達到水平平衡？
+          </p>
+          <div class="diagram-box">
+            <svg width="260" height="50" viewBox="0 0 260 50">
+              <!-- 槓桿 -->
+              <line x1="20" y1="20" x2="240" y2="20" stroke="#0f172a" stroke-width="4"/>
+              <!-- 支點 (在刻度 4，即 x=93) -->
+              <polygon points="93,22 83,38 103,38" fill="#e11d48"/>
+              <!-- 左砝碼 -->
+              <rect x="25" y="24" width="14" height="20" fill="#475569" rx="2"/>
+              <text x="32" y="38" font-size="9" fill="#fff" text-anchor="middle" font-weight="bold">6</text>
+              <!-- 右懸掛點 (末端 x=230) -->
+              <circle cx="230" cy="20" r="3" fill="#2563eb"/>
+              <text x="230" y="38" font-size="10" fill="#2563eb" text-anchor="middle" font-weight="bold">X=?</text>
+              <!-- 力臂標註 -->
+              <text x="56" y="14" font-size="9" fill="#64748b" text-anchor="middle">4 格</text>
+              <text x="160" y="14" font-size="9" fill="#64748b" text-anchor="middle">8 格</text>
+            </svg>
+          </div>
+          <div class="calc-area">
+            💡 <strong>平衡公式</strong>：$\text{左力矩} = \text{右力矩}$<br>
+            $8 \times X = 24 \implies X = 3$<br>
+            密碼規則：將 $X$ 乘以 2 再加 2（即：$3 \times 2 + 2$）
+          </div>
+        </div>
+        <div class="answer-box">
+          <span>👉 密碼第 3 位數 ＝</span>
+          <span class="fill-blank"></span>
+        </div>
+      </div>
+
+      <!-- 題目 4：電路雙向開關迷宮 -->
+      <div class="puzzle-card">
+        <div>
+          <div class="puzzle-title">💡 謎題四：雙開關迷宮（電路迴路）</div>
+          <p class="puzzle-desc">
+            有 4 條並聯電路支路，每條支路串聯兩個微型開關 $(S1, S2)$。只有兩開關皆閉合時，燈泡才會發光：
+          </p>
+          <div class="diagram-box">
+            <svg width="260" height="52" viewBox="0 0 260 52">
+              <g font-size="8.5" fill="#334155" font-family="monospace">
+                <text x="10" y="12">支路2: [S1:開] ── [S2:閉] ── (斷路✕)</text>
+                <text x="10" y="24">支路4: [S1:閉] ── [S2:開] ── (斷路✕)</text>
+                <text x="10" y="36" font-weight="bold" fill="#16a34a">支路6: [S1:閉] ── [S2:閉] ── (燈亮💡)</text>
+                <text x="10" y="48">支路8: [S1:開] ── [S2:開] ── (斷路✕)</text>
+              </g>
+            </svg>
+          </div>
+          <div class="calc-area">
+            💡 <strong>判斷法則</strong>：排查何者為唯一「完整通路（Closed circuit）」，取該通暢支路的代號數值。
+          </div>
+        </div>
+        <div class="answer-box">
+          <span>👉 密碼第 4 位數 ＝</span>
+          <span class="fill-blank"></span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 底部通關密碼欄 -->
+    <div class="final-passcode-bar">
+      <div>
+        <div style="font-size: 0.82rem; font-weight: 800; color: #64748b; letter-spacing: 0.5px;">FINAL ESCAPE CODE</div>
+        <div style="font-size: 1.15rem; font-weight: 900; color: #0f172a;">🔐 最終 4 位數逃脫密碼：</div>
+      </div>
+      <div class="code-boxes">
+        <div class="code-box"></div>
+        <span style="font-weight:900; font-size:1.5rem;">－</span>
+        <div class="code-box"></div>
+        <span style="font-weight:900; font-size:1.5rem;">－</span>
+        <div class="code-box"></div>
+        <span style="font-weight:900; font-size:1.5rem;">－</span>
+        <div class="code-box"></div>
+      </div>
+      <div class="stamp-box">
+        老師驗證簽章<br>
+        (過關蓋章 +5分)
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
