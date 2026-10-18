@@ -1,0 +1,257 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 700" width="100%" height="100%" style="background:#090d16; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Microsoft JhengHei', sans-serif;">
+  <defs>
+    <!-- 漸層效果 -->
+    <linearGradient id="bgGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#070a12"/>
+    </linearGradient>
+    <linearGradient id="podiumGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1e1b4b"/>
+      <stop offset="50%" stop-color="#2e1065"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <linearGradient id="wbGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+    <linearGradient id="table6Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#451a03"/>
+      <stop offset="100%" stop-color="#78350f"/>
+    </linearGradient>
+    <linearGradient id="studentTableGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+    <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#f59e0b" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- 外外框底圖 -->
+  <rect width="960" height="700" fill="url(#bgGlow)"/>
+  <rect x="15" y="15" width="930" height="670" rx="16" fill="none" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- 頂部標題區 -->
+  <g transform="translate(480, 42)">
+    <text text-anchor="middle" font-size="20" font-weight="800" fill="#f8fafc" letter-spacing="1">
+      🚀《STEAM 奇想造物社》5+1 六大桌工坊空間動線配置圖
+    </text>
+    <text text-anchor="middle" y="24" font-size="12" fill="#94a3b8">
+      全班 30 位學員（15 組深度協作）｜ 5 大學生自治實作島 ｜ 1 前導置物·評分·課程協助桌 ｜ 1.2M 安全走道
+    </text>
+  </g>
+
+  <!-- ══════════════════ 講台核心指揮區 ══════════════════ -->
+  <g transform="translate(40, 85)">
+    <!-- 講台底座 -->
+    <rect width="880" height="75" rx="10" fill="url(#podiumGrad)" stroke="#4338ca" stroke-width="1.5" filter="url(#cardShadow)"/>
+    
+    <!-- 左側黑板 -->
+    <rect x="20" y="12" width="180" height="50" rx="6" fill="#064e3b" stroke="#10b981" stroke-width="1.2"/>
+    <text x="110" y="32" text-anchor="middle" font-size="12" font-weight="700" fill="#6ee7b7">📋 左側黑板</text>
+    <text x="110" y="49" text-anchor="middle" font-size="10.5" fill="#a7f3d0">即時競賽比分 · 課後一拍留存</text>
+
+    <!-- 中央大白板 -->
+    <rect x="230" y="10" width="420" height="55" rx="8" fill="url(#wbGrad)" stroke="#38bdf8" stroke-width="2"/>
+    <text x="440" y="32" text-anchor="middle" font-size="14" font-weight="800" fill="#ffffff" letter-spacing="1">🖥️ 86吋 大型電子白板任務投屏</text>
+    <text x="440" y="51" text-anchor="middle" font-size="11" fill="#e0f2fe">全程投放本週單元任務 · 步驟分解圖 · 全螢幕倒數計時鐘</text>
+
+    <!-- 右側黑板 -->
+    <rect x="680" y="12" width="180" height="50" rx="6" fill="#064e3b" stroke="#10b981" stroke-width="1.2"/>
+    <text x="770" y="32" text-anchor="middle" font-size="12" font-weight="700" fill="#6ee7b7">⭐ 右側黑板</text>
+    <text x="770" y="49" text-anchor="middle" font-size="10.5" fill="#a7f3d0">桌長清點名冊 · 常規榮譽榜</text>
+  </g>
+
+  <!-- 走道標籤：前排走道 -->
+  <text x="480" y="180" text-anchor="middle" font-size="11" fill="#475569" font-weight="600">
+    ↕ 1.2M 前方教學無障礙動線 ↕
+  </text>
+
+  <!-- ══════════════════ 🌟 第 6 桌：前導多功能工作桌 ══════════════════ -->
+  <g transform="translate(190, 195)">
+    <!-- 桌體 -->
+    <rect width="580" height="85" rx="12" fill="url(#table6Grad)" stroke="#f59e0b" stroke-width="2.5" filter="url(#goldGlow)"/>
+    
+    <!-- 徽章標題 -->
+    <rect x="15" y="-12" width="220" height="24" rx="12" fill="#f59e0b"/>
+    <text x="125" y="4" text-anchor="middle" font-size="12" font-weight="800" fill="#0f172a">
+      🌟 第 6 桌 · 前導多功能工作桌
+    </text>
+    <text x="565" y="-3" text-anchor="end" font-size="11" font-weight="700" fill="#fbbf24">
+      （靠近老師 · 專供置物 / 評分 / 協助）
+    </text>
+
+    <!-- 三大核心功能分區 -->
+    <!-- 分區 1：置物 -->
+    <g transform="translate(20, 22)">
+      <rect width="165" height="50" rx="6" fill="rgba(0,0,0,0.3)" stroke="#d97706" stroke-width="1"/>
+      <text x="82" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="#fde68a">📦 公用置物調度</text>
+      <text x="82" y="38" text-anchor="middle" font-size="10" fill="#fef3c7">大工具箱 · 補充膠條 · 耗材</text>
+    </g>
+
+    <!-- 分區 2：評分 -->
+    <g transform="translate(205, 22)">
+      <rect width="170" height="50" rx="6" fill="rgba(0,0,0,0.3)" stroke="#10b981" stroke-width="1"/>
+      <text x="85" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="#6ee7b7">⚖️ 成果評分驗收</text>
+      <text x="85" y="38" text-anchor="middle" font-size="10" fill="#a7f3d0">作品檢測 · 計分卡審定核章</text>
+    </g>
+
+    <!-- 分區 3：課程協助 -->
+    <g transform="translate(395, 22)">
+      <rect width="165" height="50" rx="6" fill="rgba(0,0,0,0.3)" stroke="#38bdf8" stroke-width="1"/>
+      <text x="82" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="#7dd3fc">🛠️ 課程協助示範</text>
+      <text x="82" y="38" text-anchor="middle" font-size="10" fill="#bae6fd">微型示範 · 小助教卡關除錯</text>
+    </g>
+  </g>
+
+  <!-- 走道標籤：中央走道 -->
+  <text x="480" y="304" text-anchor="middle" font-size="11" fill="#475569" font-weight="600">
+    ↕ 1.2M 中央回字形無障礙走道 ↕
+  </text>
+
+  <!-- ══════════════════ 五大學生實作島 (桌 1～5) ══════════════════ -->
+
+  <!-- 【第 1 桌】左前 -->
+  <g transform="translate(60, 318)">
+    <rect width="380" height="110" rx="10" fill="url(#studentTableGrad)" stroke="#3b82f6" stroke-width="1.8" filter="url(#cardShadow)"/>
+    <rect x="15" y="-10" width="130" height="20" rx="10" fill="#2563eb"/>
+    <text x="80" y="4" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">🪑 第 1 桌 (6人)</text>
+    <text x="365" y="16" text-anchor="end" font-size="10" fill="#93c5fd">大桌桌長責任制 👑</text>
+
+    <!-- 組別劃分 (3組) -->
+    <g transform="translate(15, 25)">
+      <rect width="105" height="70" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+      <text x="52" y="24" text-anchor="middle" font-size="11" font-weight="700" fill="#e2e8f0">第 01 組</text>
+      <text x="52" y="42" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 A 👤 骨架</text>
+      <text x="52" y="58" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 B 👤 關節</text>
+    </g>
+    <g transform="translate(135, 25)">
+      <rect width="110" height="70" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+      <text x="55" y="24" text-anchor="middle" font-size="11" font-weight="700" fill="#e2e8f0">第 02 組</text>
+      <text x="55" y="42" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 C 👤 骨架</text>
+      <text x="55" y="58" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 D 👤 關節</text>
+    </g>
+    <g transform="translate(260, 25)">
+      <rect width="105" height="70" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+      <text x="52" y="24" text-anchor="middle" font-size="11" font-weight="700" fill="#e2e8f0">第 03 組</text>
+      <text x="52" y="42" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 E 👤 骨架</text>
+      <text x="52" y="58" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 F 👤 關節</text>
+    </g>
+  </g>
+
+  <!-- 【第 2 桌】右前 -->
+  <g transform="translate(520, 318)">
+    <rect width="380" height="110" rx="10" fill="url(#studentTableGrad)" stroke="#3b82f6" stroke-width="1.8" filter="url(#cardShadow)"/>
+    <rect x="15" y="-10" width="130" height="20" rx="10" fill="#2563eb"/>
+    <text x="80" y="4" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">🪑 第 2 桌 (6人)</text>
+    <text x="365" y="16" text-anchor="end" font-size="10" fill="#93c5fd">大桌桌長責任制 👑</text>
+
+    <!-- 組別劃分 (3組) -->
+    <g transform="translate(15, 25)">
+      <rect width="105" height="70" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+      <text x="52" y="24" text-anchor="middle" font-size="11" font-weight="700" fill="#e2e8f0">第 04 組</text>
+      <text x="52" y="42" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 G 👤 骨架</text>
+      <text x="52" y="58" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 H 👤 關節</text>
+    </g>
+    <g transform="translate(135, 25)">
+      <rect width="110" height="70" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+      <text x="55" y="24" text-anchor="middle" font-size="11" font-weight="700" fill="#e2e8f0">第 05 組</text>
+      <text x="55" y="42" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 I 👤 骨架</text>
+      <text x="55" y="58" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 J 👤 關節</text>
+    </g>
+    <g transform="translate(260, 25)">
+      <rect width="105" height="70" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+      <text x="52" y="24" text-anchor="middle" font-size="11" font-weight="700" fill="#e2e8f0">第 06 組</text>
+      <text x="52" y="42" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 K 👤 骨架</text>
+      <text x="52" y="58" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 L 👤 關節</text>
+    </g>
+  </g>
+
+  <!-- 【第 3 桌】左後 -->
+  <g transform="translate(60, 448)">
+    <rect width="380" height="110" rx="10" fill="url(#studentTableGrad)" stroke="#10b981" stroke-width="1.8" filter="url(#cardShadow)"/>
+    <rect x="15" y="-10" width="130" height="20" rx="10" fill="#059669"/>
+    <text x="80" y="4" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">🪑 第 3 桌 (6人)</text>
+    <text x="365" y="16" text-anchor="end" font-size="10" fill="#a7f3d0">大桌桌長責任制 👑</text>
+
+    <!-- 組別劃分 (3組) -->
+    <g transform="translate(15, 25)">
+      <rect width="105" height="70" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+      <text x="52" y="24" text-anchor="middle" font-size="11" font-weight="700" fill="#e2e8f0">第 07 組</text>
+      <text x="52" y="42" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 M 👤 骨架</text>
+      <text x="52" y="58" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 N 👤 關節</text>
+    </g>
+    <g transform="translate(135, 25)">
+      <rect width="110" height="70" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+      <text x="55" y="24" text-anchor="middle" font-size="11" font-weight="700" fill="#e2e8f0">第 08 組</text>
+      <text x="55" y="42" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 O 👤 骨架</text>
+      <text x="55" y="58" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 P 👤 關節</text>
+    </g>
+    <g transform="translate(260, 25)">
+      <rect width="105" height="70" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+      <text x="52" y="24" text-anchor="middle" font-size="11" font-weight="700" fill="#e2e8f0">第 09 組</text>
+      <text x="52" y="42" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 Q 👤 骨架</text>
+      <text x="52" y="58" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 R 👤 關節</text>
+    </g>
+  </g>
+
+  <!-- 【第 4 桌】右後 -->
+  <g transform="translate(520, 448)">
+    <rect width="380" height="110" rx="10" fill="url(#studentTableGrad)" stroke="#10b981" stroke-width="1.8" filter="url(#cardShadow)"/>
+    <rect x="15" y="-10" width="130" height="20" rx="10" fill="#059669"/>
+    <text x="80" y="4" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">🪑 第 4 桌 (6人)</text>
+    <text x="365" y="16" text-anchor="end" font-size="10" fill="#a7f3d0">大桌桌長責任制 👑</text>
+
+    <!-- 組別劃分 (3組) -->
+    <g transform="translate(15, 25)">
+      <rect width="105" height="70" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+      <text x="52" y="24" text-anchor="middle" font-size="11" font-weight="700" fill="#e2e8f0">第 10 組</text>
+      <text x="52" y="42" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 S 👤 骨架</text>
+      <text x="52" y="58" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 T 👤 關節</text>
+    </g>
+    <g transform="translate(135, 25)">
+      <rect width="110" height="70" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+      <text x="55" y="24" text-anchor="middle" font-size="11" font-weight="700" fill="#e2e8f0">第 11 組</text>
+      <text x="55" y="42" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 U 👤 骨架</text>
+      <text x="55" y="58" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 V 👤 關節</text>
+    </g>
+    <g transform="translate(260, 25)">
+      <rect width="105" height="70" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+      <text x="52" y="24" text-anchor="middle" font-size="11" font-weight="700" fill="#e2e8f0">第 12 組</text>
+      <text x="52" y="42" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 W 👤 骨架</text>
+      <text x="52" y="58" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 X 👤 關節</text>
+    </g>
+  </g>
+
+  <!-- 【第 5 桌】正中央後方 -->
+  <g transform="translate(290, 570)">
+    <rect width="380" height="105" rx="10" fill="url(#studentTableGrad)" stroke="#8b5cf6" stroke-width="1.8" filter="url(#cardShadow)"/>
+    <rect x="15" y="-10" width="130" height="20" rx="10" fill="#7c3aed"/>
+    <text x="80" y="4" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">🪑 第 5 桌 (6人)</text>
+    <text x="365" y="16" text-anchor="end" font-size="10" fill="#c4b5fd">大桌桌長責任制 👑</text>
+
+    <!-- 組別劃分 (3組) -->
+    <g transform="translate(15, 23)">
+      <rect width="105" height="68" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+      <text x="52" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#e2e8f0">第 13 組</text>
+      <text x="52" y="40" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 Y 👤 骨架</text>
+      <text x="52" y="56" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 Z 👤 關節</text>
+    </g>
+    <g transform="translate(135, 23)">
+      <rect width="110" height="68" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+      <text x="55" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#e2e8f0">第 14 組</text>
+      <text x="55" y="40" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 AA 👤 骨架</text>
+      <text x="55" y="56" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 BB 👤 關節</text>
+    </g>
+    <g transform="translate(260, 23)">
+      <rect width="105" height="68" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+      <text x="52" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#e2e8f0">第 15 組</text>
+      <text x="52" y="40" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 CC 👤 骨架</text>
+      <text x="52" y="56" text-anchor="middle" font-size="9.5" fill="#94a3b8">學員 DD 👤 關節</text>
+    </g>
+  </g>
+
+</svg>
