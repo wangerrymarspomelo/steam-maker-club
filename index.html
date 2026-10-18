@@ -1202,21 +1202,20 @@
         </div>
       </div>
 
-      <!-- 照片投影片輪播展示窗 (每 3 秒自動切換，附 ❮ ❯ 輔助按鍵) -->
+      <!-- 照片投影片輪播展示窗 (每 3 秒自動循環切換，附 ❮ ❯ 輔助按鍵) -->
       <div id="gallery-panel-photos" class="gallery-panel active">
-        <div class="carousel-container" id="photo-carousel" onmouseenter="pausePhotoSlideshow()" onmouseleave="startPhotoSlideshow()">
+        <div class="carousel-container" id="photo-carousel">
           <div class="carousel-track" id="photo-track">
-            <!-- 由 JavaScript 動態生成投影片 -->
+            <!-- 由 JavaScript 動態生成純淨投影片 -->
           </div>
           
           <!-- 上一張 / 下一張 輔助符號按鍵 -->
           <button type="button" class="carousel-nav-btn prev-btn" onclick="prevPhoto()" aria-label="上一張照片">❮</button>
           <button type="button" class="carousel-nav-btn next-btn" onclick="nextPhoto()" aria-label="下一張照片">❯</button>
           
-          <!-- 底部頁碼與指示圓點 -->
+          <!-- 底部指示圓點 (無任何疊加文字) -->
           <div class="carousel-footer-bar">
             <div class="carousel-dots" id="photo-dots"></div>
-            <div class="carousel-counter" id="photo-counter">1 / 3</div>
           </div>
         </div>
       </div>
@@ -1285,18 +1284,15 @@
     const photoList = [
       { 
         url: "media/photos/photo1.jpg", 
-        fallback: "https://lh3.googleusercontent.com/d/1oIUx3kGMuSaWJhtMUhhbethf1dvYLh9t", 
-        title: "學生成品實體展示 · 機構細節 (IMG_3203)" 
+        fallback: "https://lh3.googleusercontent.com/d/1oIUx3kGMuSaWJhtMUhhbethf1dvYLh9t"
       },
       { 
         url: "media/photos/photo2.jpg", 
-        fallback: "https://lh3.googleusercontent.com/d/11ksi83Mq-4-6zPwH2g1bP84dbDIF6tts", 
-        title: "學生成品實體展示 · 創作歷程 (IMG_3230)" 
+        fallback: "https://lh3.googleusercontent.com/d/11ksi83Mq-4-6zPwH2g1bP84dbDIF6tts"
       },
       { 
         url: "media/photos/photo3.jpg", 
-        fallback: "https://lh3.googleusercontent.com/d/1WyvOygvN1A5JE5T23lJZCwX2NplSc8Fr", 
-        title: "學生成品實體展示 · 完成特寫 (IMG_3232)" 
+        fallback: "https://lh3.googleusercontent.com/d/1WyvOygvN1A5JE5T23lJZCwX2NplSc8Fr"
       }
     ];
 
@@ -1329,8 +1325,7 @@
       photoList.forEach((item, idx) => {
         const slide = document.createElement('div');
         slide.className = 'carousel-slide' + (idx === 0 ? ' active' : '');
-        slide.innerHTML = `<img src="${item.url}" alt="${item.title}" onerror="if(this.src!=='${item.fallback}'){this.src='${item.fallback}';}">` + 
-          (item.title ? `<div class="slide-caption">${item.title}</div>` : '');
+        slide.innerHTML = `<img src="${item.url}" alt="社團成果照片" onerror="if(this.src!=='${item.fallback}'){this.src='${item.fallback}';}">`;
         track.appendChild(slide);
 
         const dot = document.createElement('button');
@@ -1340,15 +1335,7 @@
         dotsContainer.appendChild(dot);
       });
 
-      updatePhotoCounter();
       startPhotoSlideshow();
-    }
-
-    function updatePhotoCounter() {
-      const counter = document.getElementById('photo-counter');
-      if (counter && photoList.length > 0) {
-        counter.textContent = `${currentPhotoIdx + 1} / ${photoList.length}`;
-      }
     }
 
     function goToPhoto(idx) {
@@ -1358,11 +1345,14 @@
       if (slides[currentPhotoIdx]) slides[currentPhotoIdx].classList.remove('active');
       if (dots[currentPhotoIdx]) dots[currentPhotoIdx].classList.remove('active');
 
-      currentPhotoIdx = (idx + photoList.length) % photoList.length;
+      // 無限循環重複播放
+      currentPhotoIdx = ((idx % photoList.length) + photoList.length) % photoList.length;
 
       if (slides[currentPhotoIdx]) slides[currentPhotoIdx].classList.add('active');
       if (dots[currentPhotoIdx]) dots[currentPhotoIdx].classList.add('active');
-      updatePhotoCounter();
+
+      // 每次切換重新排程 3 秒計時器，確保持續無限循環播放
+      startPhotoSlideshow();
     }
 
     function nextPhoto() {
@@ -1376,7 +1366,7 @@
     function startPhotoSlideshow() {
       pausePhotoSlideshow();
       if (photoList.length > 1) {
-        photoTimer = setInterval(nextPhoto, 3000); // 每 3 秒換一張照片
+        photoTimer = setInterval(nextPhoto, 3000); // 每 3 秒換一張照片，無限重複循環
       }
     }
 
