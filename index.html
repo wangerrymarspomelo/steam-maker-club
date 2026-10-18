@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>《STEAM 奇想造物社：生活解謎與創客大冒險》課程介紹與學習成果手冊</title>
   <style>
     :root {
@@ -776,9 +779,9 @@
     .carousel-container {
       position: relative;
       width: 100%;
-      height: 520px;
+      height: 540px;
       max-height: 75vh;
-      background: #070a13;
+      background: #030712;
       border-radius: 14px;
       border: 1px solid var(--card-border);
       overflow: hidden;
@@ -789,7 +792,7 @@
     }
     @media (max-width: 640px) {
       .carousel-container {
-        height: 340px;
+        height: 380px;
       }
     }
     .carousel-track {
@@ -805,37 +808,27 @@
       height: 100%;
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
-      transform: scale(0.98);
+      transition: opacity 0.5s ease-in-out;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #070a13;
+      background: #030712;
     }
     .carousel-slide.active {
       opacity: 1;
       visibility: visible;
-      transform: scale(1);
       z-index: 2;
     }
     .carousel-slide img {
-      max-width: 100%;
-      max-height: 100%;
+      max-width: 95%;
+      max-height: 94%;
+      width: auto;
+      height: auto;
       object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
       user-select: none;
       -webkit-user-drag: none;
-    }
-    .carousel-slide .slide-caption {
-      position: absolute;
-      bottom: 2.8rem;
-      left: 0;
-      right: 0;
-      background: linear-gradient(transparent, rgba(7, 10, 19, 0.85));
-      color: #f8fafc;
-      padding: 1.2rem 1.5rem 0.6rem;
-      font-size: 0.95rem;
-      text-align: center;
-      font-weight: 600;
     }
     .video-player-frame {
       width: 100%;
@@ -857,12 +850,12 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: 48px;
-      height: 48px;
-      background: rgba(15, 23, 42, 0.75);
+      width: 46px;
+      height: 46px;
+      background: rgba(15, 23, 42, 0.8);
       border: 1px solid rgba(255, 255, 255, 0.2);
       color: #ffffff;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: bold;
       border-radius: 50%;
       cursor: pointer;
@@ -872,7 +865,7 @@
       z-index: 10;
       transition: all 0.25s ease;
       backdrop-filter: blur(6px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
       line-height: 1;
       user-select: none;
     }
@@ -889,48 +882,32 @@
       right: 1rem;
     }
 
-    /* 底部指示區與頁碼 */
-    .carousel-footer-bar {
-      position: absolute;
-      bottom: 0.8rem;
-      left: 0;
-      right: 0;
+    /* 外部底部指示圓點 (置於相框外下方，完全不遮擋相片) */
+    .carousel-external-dots {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 1rem;
-      z-index: 10;
-      pointer-events: none;
-    }
-    .carousel-dots {
-      display: flex;
-      gap: 0.45rem;
-      pointer-events: auto;
+      gap: 0.55rem;
+      margin-top: 1rem;
     }
     .carousel-dot {
-      width: 9px;
-      height: 9px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.25);
       border: none;
       cursor: pointer;
       padding: 0;
-      transition: all 0.2s;
+      transition: all 0.25s ease;
+    }
+    .carousel-dot:hover {
+      background: rgba(255, 255, 255, 0.5);
+      transform: scale(1.15);
     }
     .carousel-dot.active {
       background: var(--steam-t);
-      transform: scale(1.25);
-      box-shadow: 0 0 8px var(--steam-t);
-    }
-    .carousel-counter {
-      background: rgba(15, 23, 42, 0.85);
-      color: #94a3b8;
-      font-size: 0.78rem;
-      font-weight: 700;
-      padding: 0.2rem 0.65rem;
-      border-radius: 12px;
-      border: 1px solid var(--card-border);
-      pointer-events: auto;
+      transform: scale(1.3);
+      box-shadow: 0 0 10px var(--steam-t);
     }
 
     footer {
@@ -1212,12 +1189,9 @@
           <!-- 上一張 / 下一張 輔助符號按鍵 -->
           <button type="button" class="carousel-nav-btn prev-btn" onclick="prevPhoto()" aria-label="上一張照片">❮</button>
           <button type="button" class="carousel-nav-btn next-btn" onclick="nextPhoto()" aria-label="下一張照片">❯</button>
-          
-          <!-- 底部指示圓點 (無任何疊加文字) -->
-          <div class="carousel-footer-bar">
-            <div class="carousel-dots" id="photo-dots"></div>
-          </div>
         </div>
+        <!-- 外部底部指示圓點 (置於相框外下方，徹底避免任何覆蓋遮擋) -->
+        <div class="carousel-external-dots" id="photo-dots"></div>
       </div>
 
       <!-- 影片單部輪播展示窗 (附 ❮ ❯ 輔助按鍵) -->
@@ -1230,13 +1204,9 @@
           <!-- 上一部 / 下一部 輔助符號按鍵 -->
           <button type="button" class="carousel-nav-btn prev-btn" onclick="prevVideo()" aria-label="上一部影片">❮</button>
           <button type="button" class="carousel-nav-btn next-btn" onclick="nextVideo()" aria-label="下一部影片">❯</button>
-          
-          <!-- 底部影片頁碼與指示圓點 -->
-          <div class="carousel-footer-bar">
-            <div class="carousel-dots" id="video-dots"></div>
-            <div class="carousel-counter" id="video-counter">1 / 3</div>
-          </div>
         </div>
+        <!-- 外部底部影片指示圓點 (置於視窗外下方) -->
+        <div class="carousel-external-dots" id="video-dots"></div>
       </div>
     </div>
 
@@ -1283,15 +1253,15 @@
     // ══════ 成果相片與影片 3秒投影片輪播器 ══════
     const photoList = [
       { 
-        url: "media/photos/photo1.jpg", 
+        url: "media/photos/photo1.jpg?v=20261019_03", 
         fallback: "https://lh3.googleusercontent.com/d/1oIUx3kGMuSaWJhtMUhhbethf1dvYLh9t"
       },
       { 
-        url: "media/photos/photo2.jpg", 
+        url: "media/photos/photo2.jpg?v=20261019_03", 
         fallback: "https://lh3.googleusercontent.com/d/11ksi83Mq-4-6zPwH2g1bP84dbDIF6tts"
       },
       { 
-        url: "media/photos/photo3.jpg", 
+        url: "media/photos/photo3.jpg?v=20261019_03", 
         fallback: "https://lh3.googleusercontent.com/d/1WyvOygvN1A5JE5T23lJZCwX2NplSc8Fr"
       }
     ];
@@ -1395,13 +1365,11 @@
 
     function updateVideoDisplay() {
       const player = document.getElementById('video-player');
-      const counter = document.getElementById('video-counter');
       const dots = document.querySelectorAll('#video-dots .carousel-dot');
       if (!player) return;
 
       if (videoList.length > 0) {
         player.src = videoList[currentVideoIdx].url;
-        if (counter) counter.textContent = `${currentVideoIdx + 1} / ${videoList.length}`;
         dots.forEach((dot, idx) => {
           dot.classList.toggle('active', idx === currentVideoIdx);
         });
