@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>【學習單 04】達文西八大物理密碼鎖（A4 雙面列印實作版）</title>
+  <title>【實作桌遊包】達文西八大機關密碼盒（A4 雙面互動紙上遊戲卡）</title>
   <style>
     @page {
       size: A4 portrait;
-      margin: 10mm 12mm;
+      margin: 8mm 10mm;
     }
     * {
       box-sizing: border-box;
@@ -17,26 +17,26 @@
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", "Noto Sans TC", sans-serif;
       color: #0f172a;
-      background: #475569;
+      background: #334155;
       margin: 0;
-      padding: 24px 10px;
+      padding: 20px 8px;
       line-height: 1.45;
     }
 
-    /* 列印控制頂列 */
+    /* 列印控制導航列 */
     .print-bar {
-      max-width: 840px;
+      max-width: 860px;
       margin: 0 auto 16px auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
       background: #0f172a;
       padding: 12px 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
     }
     .print-tip {
-      color: #94a3b8;
+      color: #cbd5e1;
       font-size: 0.9rem;
       font-weight: 700;
     }
@@ -44,66 +44,66 @@
       background: #f59e0b;
       color: #0f172a;
       border: none;
-      padding: 8px 22px;
-      font-size: 0.95rem;
+      padding: 9px 24px;
+      font-size: 0.98rem;
       font-weight: 900;
       border-radius: 6px;
       cursor: pointer;
-      transition: all 0.2s;
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
     }
     .print-btn:hover { background: #fbbf24; transform: translateY(-1px); }
 
-    /* A4 單頁容器（雙面列印：第 1 頁正面、第 2 頁反面） */
+    /* A4 單頁容器（雙面版：第 1 頁正面、第 2 頁反面） */
     .page-sheet {
       width: 210mm;
-      min-height: 285mm;
+      min-height: 288mm;
       max-width: 100%;
       margin: 0 auto 24px auto;
       background: #fff;
-      padding: 16mm 14mm 14mm 14mm;
-      border-radius: 4px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+      padding: 14mm 14mm 12mm 14mm;
+      border-radius: 6px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
       position: relative;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
 
-    /* 頂部標頭 */
+    /* 頂部 Header */
     .sheet-header {
       border-bottom: 2.5px solid #0f172a;
       padding-bottom: 6px;
       margin-bottom: 10px;
     }
-    .header-sub {
+    .header-tagline {
       font-size: 0.8rem;
       font-weight: 800;
-      color: #64748b;
+      color: #b45309;
       letter-spacing: 1px;
       display: flex;
       justify-content: space-between;
     }
     .sheet-title {
-      font-size: 1.45rem;
+      font-size: 1.42rem;
       font-weight: 900;
       color: #0f172a;
-      margin: 3px 0 6px 0;
+      margin: 2px 0 6px 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .page-indicator {
-      font-size: 0.85rem;
+    .page-badge {
+      font-size: 0.82rem;
       font-weight: 900;
       background: #0f172a;
-      color: #fff;
+      color: #f8fafc;
       padding: 2px 10px;
       border-radius: 12px;
     }
     .info-bar {
       display: flex;
       justify-content: space-between;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       font-weight: 700;
       background: #f8fafc;
       padding: 6px 12px;
@@ -111,37 +111,38 @@
       border: 1px solid #cbd5e1;
     }
 
-    /* 警報簡報欄 */
-    .alert-banner {
-      background: #fff1f2;
-      border-left: 5px solid #e11d48;
+    /* 遊戲情境大警報 */
+    .game-lore-box {
+      background: #fffbeb;
+      border-left: 5px solid #f59e0b;
       border-radius: 4px;
       padding: 8px 12px;
-      margin-bottom: 12px;
-      font-size: 0.84rem;
-      color: #9f1239;
-      font-weight: 600;
+      margin-bottom: 10px;
+      font-size: 0.82rem;
+      color: #78350f;
+      font-weight: 700;
+      line-height: 1.45;
     }
 
-    /* 2x2 四大題目卡排版 */
-    .puzzles-grid {
+    /* 2x2 四大遊戲卡網格 */
+    .games-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-bottom: 10px;
+      gap: 12px;
+      margin-bottom: 8px;
       flex: 1;
     }
-    .puzzle-card {
-      border: 1.5px solid #cbd5e1;
+    .game-card {
+      border: 1.8px solid #cbd5e1;
       border-radius: 8px;
-      padding: 12px 14px;
-      background: #fafafa;
+      padding: 10px 12px;
+      background: #fcfcfc;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
-    .puzzle-title {
-      font-size: 0.98rem;
+    .game-title {
+      font-size: 0.95rem;
       font-weight: 900;
       color: #0f172a;
       margin-bottom: 6px;
@@ -149,150 +150,153 @@
       align-items: center;
       justify-content: space-between;
       border-bottom: 1.5px dashed #cbd5e1;
-      padding-bottom: 5px;
+      padding-bottom: 4px;
     }
-    .action-tag {
+    .game-badge {
       font-size: 0.72rem;
-      font-weight: 800;
+      font-weight: 900;
       padding: 2px 7px;
       border-radius: 4px;
       background: #dbeafe;
       color: #1e40af;
-      border: 1px solid #bfdbfe;
     }
-    .action-tag.cut {
+    .game-badge.cut {
       background: #fef3c7;
       color: #92400e;
-      border-color: #fde68a;
     }
-    .action-tag.table {
+    .game-badge.coin {
       background: #dcfce7;
       color: #166534;
-      border-color: #bbf7d0;
     }
-    .puzzle-desc {
-      font-size: 0.84rem;
-      color: #334155;
-      margin: 0 0 8px 0;
-      line-height: 1.45;
+    .game-badge.fold {
+      background: #fce7f3;
+      color: #9d174d;
     }
 
-    /* 大尺寸高清晰向量圖容器（不再擁擠遮擋） */
-    .diagram-box {
+    .game-instruction {
+      font-size: 0.82rem;
+      color: #334155;
+      margin: 0 0 6px 0;
+      line-height: 1.4;
+      font-weight: 600;
+    }
+
+    /* 遊戲互動繪圖區 */
+    .game-canvas-box {
       background: #fff;
-      border: 1px solid #e2e8f0;
+      border: 1.2px solid #e2e8f0;
       border-radius: 6px;
-      padding: 8px 6px;
+      padding: 6px 4px;
       text-align: center;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       box-shadow: inset 0 1px 3px rgba(0,0,0,0.03);
     }
-    .diagram-box svg {
+    .game-canvas-box svg {
       max-width: 100%;
       height: auto;
       display: block;
       margin: 0 auto;
     }
 
-    /* 計算提示區 */
-    .calc-hint {
+    /* 玩法提示 */
+    .game-rule-hint {
       background: #f1f5f9;
       border-radius: 4px;
-      padding: 5px 8px;
-      font-size: 0.78rem;
+      padding: 4px 8px;
+      font-size: 0.76rem;
       color: #475569;
       margin-bottom: 6px;
-      line-height: 1.4;
+      line-height: 1.35;
+      font-weight: 600;
     }
 
-    /* 答案填寫欄 */
-    .ans-row {
+    /* 密碼答案槽 */
+    .game-ans-slot {
       background: #eff6ff;
       border: 1.5px solid #bfdbfe;
       border-radius: 6px;
-      padding: 5px 10px;
+      padding: 4px 8px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-weight: 800;
+      font-weight: 900;
       color: #1e3a8a;
-      font-size: 0.88rem;
+      font-size: 0.85rem;
     }
-    .code-input-blank {
-      width: 44px;
+    .ans-input-circle {
+      width: 42px;
       height: 28px;
       line-height: 26px;
       border: 2px solid #2563eb;
       background: #fff;
-      border-radius: 5px;
+      border-radius: 6px;
       text-align: center;
       font-size: 1.3rem;
       font-weight: 900;
       color: #0f172a;
     }
 
-    /* 第一頁底部分頁提示列 */
-    .flip-page-bar {
+    /* 正面翻頁小結 */
+    .flip-page-footer {
       border: 2px dashed #94a3b8;
       border-radius: 6px;
+      padding: 6px 12px;
+      background: #f8fafc;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: #475569;
+    }
+    .footer-subcodes {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .mini-box {
+      width: 24px;
+      height: 26px;
+      line-height: 24px;
+      border: 1.5px solid #64748b;
+      background: #fff;
+      border-radius: 4px;
+      text-align: center;
+      font-size: 0.95rem;
+      font-weight: 900;
+    }
+
+    /* 反面終局：8 位數保險箱大鍵盤 */
+    .vault-master-bar {
+      border: 2.5px solid #0f172a;
+      border-radius: 8px;
       padding: 8px 14px;
       background: #f8fafc;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.85rem;
-      font-weight: 800;
-      color: #475569;
-      margin-top: 6px;
+      gap: 10px;
+      margin-bottom: 8px;
     }
-    .subcode-preview {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .subcode-box {
-      width: 26px;
-      height: 28px;
-      line-height: 26px;
-      border: 1.5px solid #64748b;
-      background: #fff;
-      border-radius: 4px;
-      text-align: center;
-      font-size: 1rem;
-      font-weight: 900;
-    }
-
-    /* 第二頁底部：終極 8 位數解密台 */
-    .master-code-bar {
-      border: 2.5px solid #0f172a;
-      border-radius: 8px;
-      padding: 10px 16px;
-      background: #f8fafc;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 10px;
-    }
-    .master-title {
-      font-size: 0.76rem;
+    .vault-title {
+      font-size: 0.72rem;
       font-weight: 800;
       color: #64748b;
     }
-    .master-heading {
-      font-size: 1.05rem;
+    .vault-heading {
+      font-size: 1rem;
       font-weight: 900;
       color: #0f172a;
     }
-    .code-boxes {
+    .vault-slots {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
-    .box-item {
-      width: 34px;
-      height: 42px;
-      line-height: 38px;
+    .vault-slot-item {
+      width: 32px;
+      height: 40px;
+      line-height: 36px;
       border: 2px solid #0f172a;
       background: #fff;
       border-radius: 5px;
@@ -300,53 +304,46 @@
       font-size: 1.35rem;
       font-weight: 900;
     }
-    .stamp-box {
-      width: 110px;
-      height: 48px;
+    .teacher-stamp-box {
+      width: 105px;
+      height: 44px;
       border: 2px dashed #94a3b8;
       border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       color: #64748b;
       font-weight: 800;
       text-align: center;
     }
 
-    /* 第二頁底端：✂️ 實體剪裁區（足夠高度，絕不擋圖） */
-    .cutout-strip-area {
+    /* 頁底實體剪裁區（斯巴達捲筆螺旋條） */
+    .spartan-strip-area {
       border: 2px dashed #d97706;
       background: #fffbeb;
-      border-radius: 8px;
-      padding: 8px 12px;
-      position: relative;
+      border-radius: 6px;
+      padding: 6px 10px;
     }
-    .cutout-title {
-      font-size: 0.8rem;
+    .spartan-title {
+      font-size: 0.76rem;
       font-weight: 900;
       color: #b45309;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
-    /* 列印專屬分頁規則 */
     @media print {
-      body {
-        background: #fff;
-        padding: 0;
-      }
-      .print-bar {
-        display: none !important;
-      }
+      body { background: #fff; padding: 0; }
+      .print-bar { display: none !important; }
       .page-sheet {
         width: 100%;
         min-height: auto;
         height: 275mm;
         margin: 0;
-        padding: 10mm 12mm;
+        padding: 8mm 10mm;
         box-shadow: none;
         border: none;
         page-break-after: always;
@@ -356,470 +353,416 @@
         page-break-after: avoid;
         break-after: avoid;
       }
-      .puzzle-card {
-        border-color: #000;
-        background: #fff !important;
-      }
-      .diagram-box {
-        border-color: #94a3b8;
-      }
-      .flip-page-bar {
-        border-color: #000;
-      }
-      .master-code-bar {
-        border-color: #000;
-      }
-      .cutout-strip-area {
-        border-color: #000;
-        background: #fff !important;
-      }
+      .game-card { border-color: #000; background: #fff !important; }
+      .vault-master-bar { border-color: #000; }
+      .spartan-strip-area { border-color: #000; background: #fff !important; }
     }
   </style>
 </head>
 <body>
 
-  <!-- 頂部列印功能列 -->
+  <!-- 列印控制頂列 -->
   <div class="print-bar">
     <div class="print-tip">
-      💡 建議列印設定：選擇 <strong>「雙面列印（長邊翻頁）」</strong>，紙張大小選 <strong>A4</strong>，剛好一張兩面！
+      🎲 實體桌遊列印設定：選擇 <strong>「雙面列印（長邊翻頁）」</strong>，A4 紙一張正反兩面！
     </div>
     <div>
-      <button class="print-btn" onclick="window.print()">🖨️ 立即列印此雙面學習單</button>
-      <a href="達文西密碼鎖_八位數逃脫終端機.html" target="_blank" style="margin-left: 14px; text-decoration: none; font-weight: 800; color: #38bdf8; font-size: 0.9rem;">🖥️ 開啟全螢幕終端機 ➜</a>
+      <button class="print-btn" onclick="window.print()">🖨️ 列印此雙面桌遊卡</button>
+      <a href="達文西密碼鎖_八位數逃脫終端機.html" target="_blank" style="margin-left: 12px; text-decoration: none; font-weight: 900; color: #38bdf8; font-size: 0.9rem;">🖥️ 開啟投影終端機 ➜</a>
     </div>
   </div>
 
   <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- 📄 第 1 頁（正面）：力學傳動與幾何光學（關卡 ① ～ ④） -->
+  <!-- 📄 第 1 頁（正面）：機關連鎖遊戲篇（遊戲 ① ～ ④） -->
   <!-- ═══════════════════════════════════════════════════════ -->
   <div class="page-sheet">
     <div>
-      <!-- 標頭資訊 -->
+      <!-- 標頭 -->
       <div class="sheet-header">
-        <div class="header-sub">
-          <span>STEAM MAKER ADVENTURE · 國中社團第 06 週 解謎篇</span>
+        <div class="header-tagline">
+          <span>STEAM MAKER ADVENTURE · 國中社團第 06 週「解謎篇」桌遊包</span>
           <span style="color:#0284c7;">【正面 · 第一部分】</span>
         </div>
         <div class="sheet-title">
-          <span>🔐 達文西八大物理密碼鎖（破譯操作卡）</span>
-          <span class="page-indicator">第 1 頁 / 共 2 頁</span>
+          <span>🗝️ 達文西機關寶盒：八大實體紙上破譯遊戲</span>
+          <span class="page-badge">第 1 頁 / 共 2 頁</span>
         </div>
         <div class="info-bar">
           <span>桌號：第【＿＿】大桌</span>
-          <span>桌長（指揮官）：＿＿＿＿＿＿</span>
-          <span>同桌破解員：＿＿＿＿、＿＿＿＿、＿＿＿＿</span>
-          <span>開始時間：＿＿:＿＿</span>
+          <span>桌長（探險隊長）：＿＿＿＿＿＿</span>
+          <span>特工隊員：＿＿＿＿、＿＿＿＿、＿＿＿＿</span>
+          <span>破譯耗時：＿＿:＿＿</span>
         </div>
       </div>
 
-      <!-- 任務警報簡報 -->
-      <div class="alert-banner">
-        🚨 <strong>氣閘警報</strong>：工坊大門將於 <strong>40 分鐘後鎖死</strong>！每桌 6 人請採「兩人一組」分工，利用 <strong>15cm 尺、剪刀、硬幣與筆桿</strong> 動手實測，將推導所得的 <strong>8 位數密碼</strong> 輸入前台終端機！
+      <!-- 遊戲故事簡報 -->
+      <div class="game-lore-box">
+        🚨 <strong>密室警報</strong>：達文西氣閘將於 <strong>40 分鐘後鎖死</strong>！這不是考試，而是 8 道用紙張與隨身文具互動的「實體機關桌遊」！請兩人一組動手 <strong>剪裁、摺紙、走繩索迷宮、在桌上用尺疊硬幣</strong>，奪取 8 位數解密金鑰！
       </div>
 
-      <!-- 前四大題目網格 2x2（充足高度，圖形完全不擠壓） -->
-      <div class="puzzles-grid">
+      <!-- 正面四大紙上互動遊戲 2x2 -->
+      <div class="games-grid">
 
-        <!-- 關卡 ① 齒輪轉速比 -->
-        <div class="puzzle-card">
+        <!-- 遊戲 ①：齒輪轉動連動盤 -->
+        <div class="game-card">
           <div>
-            <div class="puzzle-title">
-              <span>① 齒輪傳動轉速比</span>
-              <span class="action-tag">國小六下·機械輪軸</span>
+            <div class="game-title">
+              <span>遊戲 ①：達文西旋轉齒輪盒</span>
+              <span class="game-badge">旋轉連鎖遊戲</span>
             </div>
-            <p class="puzzle-desc">
-              達文西時計機構：輸入輪 A（24齒，順時針）轉動 <strong>2 圈</strong>，經惰輪 B（12齒）傳動輸出齒輪 C（8齒）。求齒輪 C 總共旋轉幾圈？
+            <p class="game-instruction">
+              🎮 <strong>玩法任務</strong>：輸入輪 A（24齒）順時針旋轉整整 <strong>2 圈</strong>，帶動中間的傳遞小齒輪 B（12齒），最右側的輸出寶箱輪 C（8齒）會被帶動旋轉幾圈？
             </p>
-            <!-- 高清晰 SVG 齒輪傳動大圖 -->
-            <div class="diagram-box">
-              <svg width="270" height="72" viewBox="0 0 270 72">
+            <div class="game-canvas-box">
+              <svg width="270" height="74" viewBox="0 0 270 74">
                 <!-- 輪 A -->
-                <circle cx="45" cy="36" r="28" fill="#fed7aa" stroke="#c2410c" stroke-width="2"/>
-                <circle cx="45" cy="36" r="6" fill="#fff" stroke="#c2410c" stroke-width="2"/>
-                <text x="45" y="33" font-size="10" font-weight="bold" fill="#7c2d12" text-anchor="middle">A(24齒)</text>
-                <text x="45" y="47" font-size="9" fill="#c2410c" text-anchor="middle">順時針 2圈</text>
-                <path d="M 25 18 A 24 24 0 0 1 65 18" fill="none" stroke="#ea580c" stroke-width="2" marker-end="url(#arr)"/>
-                <!-- 惰輪 B -->
-                <circle cx="120" cy="36" r="18" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
-                <circle cx="120" cy="36" r="4" fill="#fff" stroke="#475569" stroke-width="1.5"/>
-                <text x="120" y="34" font-size="9" fill="#334155" text-anchor="middle">B(12齒)</text>
-                <text x="120" y="46" font-size="8" fill="#64748b" text-anchor="middle">惰輪(逆)</text>
-                <!-- 輸出輪 C -->
-                <circle cx="185" cy="36" r="14" fill="#bbf7d0" stroke="#15803d" stroke-width="2"/>
-                <circle cx="185" cy="36" r="3.5" fill="#fff" stroke="#15803d" stroke-width="1.5"/>
-                <text x="185" y="34" font-size="9" font-weight="bold" fill="#14532d" text-anchor="middle">C(8齒)</text>
-                <text x="185" y="46" font-size="8" font-weight="bold" fill="#16a34a" text-anchor="middle">? 圈(順)</text>
-                <!-- 嚙合標籤 -->
-                <line x1="73" y1="36" x2="102" y2="36" stroke="#94a3b8" stroke-dasharray="2,2"/>
-                <line x1="138" y1="36" x2="171" y2="36" stroke="#94a3b8" stroke-dasharray="2,2"/>
+                <circle cx="45" cy="37" r="28" fill="#fed7aa" stroke="#c2410c" stroke-width="2"/>
+                <circle cx="45" cy="37" r="6" fill="#fff" stroke="#c2410c" stroke-width="2"/>
+                <text x="45" y="34" font-size="9.5" font-weight="bold" fill="#7c2d12" text-anchor="middle">輪 A (24齒)</text>
+                <text x="45" y="47" font-size="8.5" fill="#ea580c" text-anchor="middle">順轉 2 圈 ➜</text>
+                <!-- 輪 B -->
+                <circle cx="120" cy="37" r="18" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
+                <circle cx="120" cy="37" r="4" fill="#fff" stroke="#475569" stroke-width="1.5"/>
+                <text x="120" y="35" font-size="8.5" fill="#334155" text-anchor="middle">輪 B (12齒)</text>
+                <text x="120" y="46" font-size="7.5" fill="#64748b" text-anchor="middle">⟲ 傳遞惰輪</text>
+                <!-- 輪 C -->
+                <circle cx="185" cy="37" r="14" fill="#bbf7d0" stroke="#15803d" stroke-width="2"/>
+                <circle cx="185" cy="37" r="3.5" fill="#fff" stroke="#15803d" stroke-width="1.5"/>
+                <text x="185" y="35" font-size="8.5" font-weight="bold" fill="#14532d" text-anchor="middle">輪 C (8齒)</text>
+                <text x="185" y="47" font-size="8" font-weight="bold" fill="#16a34a" text-anchor="middle">開鎖轉 ? 圈</text>
+                <!-- 齒條嚙合符號 -->
+                <path d="M 73 37 L 102 37 M 138 37 L 171 37" stroke="#94a3b8" stroke-width="2" stroke-dasharray="3,2"/>
               </svg>
             </div>
-            <div class="calc-hint">
-              💡 <strong>推導公式</strong>：$\text{轉速}_A \times \text{齒數}_A = \text{轉速}_C \times \text{齒數}_C$<br>
-              算式：$2 \times 24 = N_C \times 8 \implies N_C = $？
+            <div class="game-rule-hint">
+              🎲 <strong>轉動密技</strong>：A輪轉2圈共撥過 $2 \times 24 = 48$ 個齒！小輪 C 只有 8 齒，被這 48 個齒推動，總共會瘋狂轉過幾圈？
             </div>
           </div>
-          <div class="ans-row">
-            <span>👉 密碼第 1 位數 ＝</span>
-            <span class="code-input-blank"></span>
+          <div class="game-ans-slot">
+            <span>👉 寶箱輪 C 轉動圈數 ＝</span>
+            <span class="ans-input-circle"></span>
           </div>
         </div>
 
-        <!-- 關卡 ② 幾何光學反射 -->
-        <div class="puzzle-card">
+        <!-- 遊戲 ②：摺紙光路反射合字術 -->
+        <div class="game-card">
           <div>
-            <div class="puzzle-title">
-              <span>② 幾何光學多重反射</span>
-              <span class="action-tag">拿 15cm 尺在圖上畫光線</span>
+            <div class="game-title">
+              <span>遊戲 ②：達文西鏡像折光術</span>
+              <span class="game-badge fold">拿尺在圖上畫光線</span>
             </div>
-            <p class="puzzle-desc">
-              雷射由 (1,0) 向上射出，遭遇 4 面 45° 平面鏡折轉：<br>
-              (1,4)向右 ➜ (6,4)向下 ➜ (6,1)向左 ➜ (3,1)向下垂直射出。
+            <p class="game-instruction">
+              🎮 <strong>玩法任務</strong>：雷射從綠色起點 (1,0) 向上射出，遇到斜鏡子就轉彎 90°：(1,4)向右 ➜ (6,4)向下 ➜ (6,1)向左 ➜ (3,1)向下垂直射出！直擊哪個靶位？
             </p>
-            <!-- 8x6 坐標網格大圖（足夠空間畫線） -->
-            <div class="diagram-box">
-              <svg width="260" height="95" viewBox="0 0 260 95">
+            <div class="game-canvas-box">
+              <svg width="260" height="92" viewBox="0 0 260 92">
                 <defs>
-                  <pattern id="grid1" width="22" height="18" patternUnits="userSpaceOnUse">
+                  <pattern id="grid_game" width="22" height="18" patternUnits="userSpaceOnUse">
                     <path d="M 22 0 L 0 0 0 18" fill="none" stroke="#e2e8f0" stroke-width="1"/>
                   </pattern>
                 </defs>
-                <rect x="25" y="5" width="220" height="72" fill="url(#grid1)" stroke="#94a3b8" stroke-width="1.2"/>
-                <!-- 4面 45度反射鏡 -->
-                <line x1="43" y1="27" x2="57" y2="13" stroke="#2563eb" stroke-width="3"/>
-                <text x="50" y="10" font-size="7.5" fill="#2563eb" text-anchor="middle">(1,4)</text>
-
-                <line x1="153" y1="13" x2="167" y2="27" stroke="#2563eb" stroke-width="3"/>
-                <text x="160" y="10" font-size="7.5" fill="#2563eb" text-anchor="middle">(6,4)</text>
-
-                <line x1="153" y1="67" x2="167" y2="53" stroke="#2563eb" stroke-width="3"/>
-                <text x="175" y="65" font-size="7.5" fill="#2563eb">(6,1)</text>
-
-                <line x1="87" y1="53" x2="101" y2="67" stroke="#2563eb" stroke-width="3"/>
-                <text x="75" y="65" font-size="7.5" fill="#2563eb">(3,1)</text>
-
-                <!-- 光線路徑 -->
+                <rect x="25" y="5" width="220" height="72" fill="url(#grid_game)" stroke="#94a3b8" stroke-width="1.2"/>
+                <!-- 鏡子 -->
+                <line x1="43" y1="27" x2="57" y2="13" stroke="#2563eb" stroke-width="3"/><text x="50" y="10" font-size="7.5" fill="#2563eb" text-anchor="middle">鏡1</text>
+                <line x1="153" y1="13" x2="167" y2="27" stroke="#2563eb" stroke-width="3"/><text x="160" y="10" font-size="7.5" fill="#2563eb" text-anchor="middle">鏡2</text>
+                <line x1="153" y1="67" x2="167" y2="53" stroke="#2563eb" stroke-width="3"/><text x="175" y="65" font-size="7.5" fill="#2563eb">鏡3</text>
+                <line x1="87" y1="53" x2="101" y2="67" stroke="#2563eb" stroke-width="3"/><text x="75" y="65" font-size="7.5" fill="#2563eb">鏡4</text>
+                <!-- 光束路徑 -->
                 <path d="M 47 77 L 47 23 L 157 23 L 157 59 L 91 59 L 91 85" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-dasharray="3,2"/>
                 <text x="35" y="86" font-size="8" font-weight="bold" fill="#16a34a">雷射</text>
-                <text x="91" y="93" font-size="9" font-weight="bold" fill="#dc2626" text-anchor="middle">▼ 擊中 3 號靶</text>
+                <!-- 底部靶位 0~9 -->
+                <text x="91" y="91" font-size="9" font-weight="bold" fill="#dc2626" text-anchor="middle">▼ 命中 3 號靶！</text>
               </svg>
             </div>
-            <div class="calc-hint">
-              💡 <strong>幾何法則</strong>：每次 45° 反射使光束折角 90°。<br>
-              終點光束在 X=3 處垂直向下射出，直擊感應靶位。
+            <div class="game-rule-hint">
+              🎲 <strong>光路追蹤</strong>：拿起你的 15cm 尺，跟著光線撞牆轉彎彈射，看看最終光束從底部哪個號碼的門射出來？
             </div>
           </div>
-          <div class="ans-row">
-            <span>👉 密碼第 2 位數 ＝</span>
-            <span class="code-input-blank"></span>
+          <div class="game-ans-slot">
+            <span>👉 光束命中逃生靶號 ＝</span>
+            <span class="ans-input-circle"></span>
           </div>
         </div>
 
-        <!-- 關卡 ③ 15cm 尺桌面天平 -->
-        <div class="puzzle-card">
+        <!-- 遊戲 ③：15cm 尺桌面硬幣天平抓平衡 -->
+        <div class="game-card">
           <div>
-            <div class="puzzle-title">
-              <span>③ 15cm 尺天平多物實測</span>
-              <span class="action-tag table">桌上放 15cm 尺＋硬幣實測</span>
+            <div class="game-title">
+              <span>遊戲 ③：15cm 尺桌面翹翹板</span>
+              <span class="game-badge coin">桌上架尺＋硬幣實測</span>
             </div>
-            <p class="puzzle-desc">
-              拿鉛筆盒 15cm 尺，支點置於 <strong>6cm 刻度</strong> 處：<br>
-              左側 0cm 放 3 枚硬幣、3cm 放 2 枚硬幣。右側 18cm 處需放幾枚硬幣才能達成水平靜態平衡？
+            <p class="game-instruction">
+              🎮 <strong>動手實測</strong>：在桌上把橡皮擦墊在 15cm 尺的 <strong>6cm 刻度</strong> 處當支點。左邊 0cm 放 3 枚硬幣、3cm 放 2 枚硬幣。右邊 18cm 處要放幾枚硬幣才能剛好浮起平衡？
             </p>
-            <!-- 槓桿大圖 -->
-            <div class="diagram-box">
-              <svg width="270" height="75" viewBox="0 0 270 75">
-                <!-- 15cm 尺 -->
+            <div class="game-canvas-box">
+              <svg width="270" height="74" viewBox="0 0 270 74">
                 <rect x="20" y="24" width="230" height="12" fill="#f8fafc" stroke="#0f172a" stroke-width="2" rx="2"/>
-                <!-- 刻度線 -->
                 <line x1="30" y1="24" x2="30" y2="30" stroke="#64748b" stroke-width="1.5"/><text x="30" y="20" font-size="7.5" text-anchor="middle">0cm</text>
                 <line x1="76" y1="24" x2="76" y2="30" stroke="#64748b" stroke-width="1.5"/><text x="76" y="20" font-size="7.5" text-anchor="middle">3cm</text>
-                <line x1="122" y1="24" x2="122" y2="32" stroke="#e11d48" stroke-width="2"/><text x="122" y="18" font-size="8.5" font-weight="bold" fill="#e11d48" text-anchor="middle">6cm(支點)</text>
+                <polygon points="122,36 112,56 132,56" fill="#e11d48"/><text x="122" y="67" font-size="8" fill="#e11d48" text-anchor="middle">6cm橡皮擦</text>
                 <line x1="230" y1="24" x2="230" y2="30" stroke="#2563eb" stroke-width="1.5"/><text x="230" y="20" font-size="8" font-weight="bold" fill="#2563eb" text-anchor="middle">18cm</text>
-                <!-- 支點三角形 -->
-                <polygon points="122,36 112,58 132,58" fill="#e11d48"/>
-                <text x="122" y="69" font-size="8" fill="#e11d48" text-anchor="middle">橡皮擦支點</text>
-                <!-- 左硬幣堆疊 -->
+                <!-- 硬幣圖 -->
                 <rect x="25" y="8" width="10" height="15" fill="#94a3b8" stroke="#475569" rx="1"/><text x="30" y="18" font-size="8" fill="#fff" text-anchor="middle">3</text>
                 <rect x="71" y="11" width="10" height="12" fill="#94a3b8" stroke="#475569" rx="1"/><text x="76" y="20" font-size="8" fill="#fff" text-anchor="middle">2</text>
-                <!-- 右硬幣 -->
                 <rect x="225" y="10" width="10" height="13" fill="#38bdf8" stroke="#0284c7" stroke-dasharray="2,2"/><text x="230" y="20" font-size="8" font-weight="bold" fill="#0369a1" text-anchor="middle">?</text>
               </svg>
             </div>
-            <div class="calc-hint">
-              💡 <strong>多物力矩平衡</strong>：左力矩 $= 6\text{cm}\times 3 + 3\text{cm}\times 2 = 18 + 6 = 24$<br>
-              右臂長度 $= 18 - 6 = 12\text{cm}$ ➜ $12 \times X = 24 \implies X = $？
+            <div class="game-rule-hint">
+              🎲 <strong>桌上真機實測</strong>：左邊怪獸重力值是 $6\text{cm}\times 3 + 3\text{cm}\times 2 = 24$！右邊距離支點 12cm，放 1 枚太輕翹起、放 3 枚沉下去，剛好放幾枚水平浮空？
             </div>
           </div>
-          <div class="ans-row">
-            <span>👉 密碼第 3 位數 ＝</span>
-            <span class="code-input-blank"></span>
+          <div class="game-ans-slot">
+            <span>👉 右邊實測平衡硬幣數 ＝</span>
+            <span class="ans-input-circle"></span>
           </div>
         </div>
 
-        <!-- 關卡 ④ 滑輪省力機構 -->
-        <div class="puzzle-card">
+        <!-- 遊戲 ④：滑輪鋼索不打結迷宮 -->
+        <div class="game-card">
           <div>
-            <div class="puzzle-title">
-              <span>④ 複合滑輪組受力分析</span>
-              <span class="action-tag">用螢光筆在圖上沿鋼索穿線</span>
+            <div class="game-title">
+              <span>遊戲 ④：滑輪鋼索一筆畫迷宮</span>
+              <span class="game-badge">拿螢光筆在圖上走線</span>
             </div>
-            <p class="puzzle-desc">
-              工坊起重機使用「2 定輪 ＋ 2 動輪」複合滑輪組吊起 <strong>32 公斤</strong> 的巨石。動滑輪共有 <strong>4 段</strong> 垂直鋼索向上吊掛。
+            <p class="game-instruction">
+              🎮 <strong>走線任務</strong>：城牆塔吊掛著 <strong>32 公斤</strong> 寶箱，學生用筆從工人手掌開始沿唯一鋼索走迷宮，數出共有 <strong>幾段直直往上的鋼索</strong> 共同把寶箱吊在半空中？
             </p>
-            <!-- 滑輪大圖 -->
-            <div class="diagram-box">
-              <svg width="270" height="75" viewBox="0 0 270 75">
-                <!-- 上天花板定滑輪 -->
+            <div class="game-canvas-box">
+              <svg width="270" height="74" viewBox="0 0 270 74">
                 <line x1="80" y1="6" x2="200" y2="6" stroke="#334155" stroke-width="3"/>
                 <circle cx="110" cy="18" r="9" fill="#f1f5f9" stroke="#0f172a" stroke-width="1.8"/>
                 <circle cx="170" cy="18" r="9" fill="#f1f5f9" stroke="#0f172a" stroke-width="1.8"/>
-                <!-- 下動滑輪箱 -->
                 <circle cx="125" cy="42" r="9" fill="#fed7aa" stroke="#c2410c" stroke-width="1.8"/>
                 <circle cx="155" cy="42" r="9" fill="#fed7aa" stroke="#c2410c" stroke-width="1.8"/>
-                <rect x="110" y="52" width="60" height="18" fill="#475569" rx="3"/>
-                <text x="140" y="65" font-size="9" fill="#fff" font-weight="bold" text-anchor="middle">重物 32 kgw</text>
-                <!-- 4段向上鋼索標註 -->
-                <line x1="101" y1="18" x2="116" y2="42" stroke="#2563eb" stroke-width="1.8"/>
-                <line x1="134" y1="42" x2="161" y2="18" stroke="#2563eb" stroke-width="1.8"/>
-                <line x1="179" y1="18" x2="164" y2="42" stroke="#2563eb" stroke-width="1.8"/>
-                <line x1="146" y1="42" x2="119" y2="18" stroke="#2563eb" stroke-width="1.8"/>
-                <!-- 拉繩 -->
-                <line x1="101" y1="18" x2="80" y2="45" stroke="#ea580c" stroke-width="2" marker-end="url(#arr)"/>
-                <text x="65" y="45" font-size="8.5" font-weight="bold" fill="#ea580c">施力 F=?</text>
+                <rect x="110" y="52" width="60" height="18" fill="#475569" rx="3"/><text x="140" y="65" font-size="9" fill="#fff" font-weight="bold" text-anchor="middle">寶箱 32 kgw</text>
+                <!-- 4段鋼索 -->
+                <line x1="101" y1="18" x2="116" y2="42" stroke="#2563eb" stroke-width="2"/>
+                <line x1="134" y1="42" x2="161" y2="18" stroke="#2563eb" stroke-width="2"/>
+                <line x1="179" y1="18" x2="164" y2="42" stroke="#2563eb" stroke-width="2"/>
+                <line x1="146" y1="42" x2="119" y2="18" stroke="#2563eb" stroke-width="2"/>
+                <line x1="101" y1="18" x2="75" y2="45" stroke="#ea580c" stroke-width="2"/>
+                <text x="65" y="45" font-size="8.5" font-weight="bold" fill="#ea580c">手拉力=?</text>
               </svg>
             </div>
-            <div class="calc-hint">
-              💡 <strong>省力法則</strong>：忽略摩擦阻力，由 $n=4$ 段繩共同承擔物重：<br>
-              算式：$F = W / n = 32 / 4 = $？
+            <div class="game-rule-hint">
+              🎲 <strong>平分重力大法</strong>：32公斤由這 4 段鋼索兄弟平均分擔！工人手上的繩頭只需要出 $32 \div 4 =$ 幾公斤的力氣就能輕鬆拉起？
             </div>
           </div>
-          <div class="ans-row">
-            <span>👉 密碼第 4 位數 ＝</span>
-            <span class="code-input-blank"></span>
+          <div class="game-ans-slot">
+            <span>👉 工人拉力公斤數 ＝</span>
+            <span class="ans-input-circle"></span>
           </div>
         </div>
 
       </div>
     </div>
 
-    <!-- 正面底部：翻面指示與前 4 碼彙整 -->
-    <div class="flip-page-bar">
-      <div class="subcode-preview">
-        <span>【正面破譯成果】前 4 位數解密小結：</span>
-        <div class="subcode-box"></div>
-        <div class="subcode-box"></div>
-        <div class="subcode-box"></div>
-        <div class="subcode-box"></div>
+    <!-- 正面底部：第一階段成果小結 -->
+    <div class="flip-page-footer">
+      <div class="footer-subcodes">
+        <span>【前半場破譯進度】已取得前 4 碼：</span>
+        <div class="mini-box"></div>
+        <div class="mini-box"></div>
+        <div class="mini-box"></div>
+        <div class="mini-box"></div>
       </div>
       <div style="color: #0284c7; font-size: 0.9rem;">
-        請翻至背面繼續破解關卡 ⑤～⑧ ➜
+        請翻至背面繼續破解遊戲 ⑤～⑧ ➜
       </div>
     </div>
   </div>
 
 
   <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- 📄 第 2 頁（反面）：電磁流體與工程實作（關卡 ⑤ ～ ⑧） -->
+  <!-- 📄 第 2 頁（反面）：間諜解密與實作篇（遊戲 ⑤ ～ ⑧） -->
   <!-- ═══════════════════════════════════════════════════════ -->
   <div class="page-sheet">
     <div>
       <!-- 反面標頭 -->
       <div class="sheet-header">
-        <div class="header-sub">
-          <span>STEAM MAKER ADVENTURE · 國中社團第 06 週 解謎篇</span>
+        <div class="header-tagline">
+          <span>STEAM MAKER ADVENTURE · 國中社團第 06 週「解謎篇」桌遊包</span>
           <span style="color:#d97706;">【反面 · 第二部分】</span>
         </div>
         <div class="sheet-title">
-          <span>🔐 達文西八大物理密碼鎖（後半部與終極金鑰）</span>
-          <span class="page-indicator">第 2 頁 / 共 2 頁</span>
+          <span>🗝️ 達文西機關寶盒：特工解密與終極保險箱</span>
+          <span class="page-badge">第 2 頁 / 共 2 頁</span>
         </div>
       </div>
 
-      <!-- 後四大題目網格 2x2 -->
-      <div class="puzzles-grid">
+      <!-- 後四大紙上互動遊戲 2x2 -->
+      <div class="games-grid">
 
-        <!-- 關卡 ⑤ 雙開關電路邏輯 -->
-        <div class="puzzle-card">
+        <!-- 遊戲 ⑤：排查短路點亮夜明珠 -->
+        <div class="game-card">
           <div>
-            <div class="puzzle-title">
-              <span>⑤ 雙開關電路邏輯迷宮</span>
-              <span class="action-tag">排除短路與斷路</span>
+            <div class="game-title">
+              <span>遊戲 ⑤：點亮唯一的綠色寶石</span>
+              <span class="game-badge">開關邏輯排查</span>
             </div>
-            <p class="puzzle-desc">
-              4 條並聯電路皆串聯兩個刀閘開關。只有兩開關皆閉合才能形成閉合迴路（Closed Circuit）點亮綠燈：
+            <p class="game-instruction">
+              🎮 <strong>排查任務</strong>：古代電力機關有 4 條秘密迴路，每條都設有兩個微型開關。只要有一個開關沒合上就是「斷路」，只有兩開關皆閉合才能點亮綠燈！
             </p>
-            <!-- 電路大圖 -->
-            <div class="diagram-box">
+            <div class="game-canvas-box">
               <svg width="270" height="72" viewBox="0 0 270 72">
                 <g font-size="8.5" font-family="monospace" fill="#334155">
-                  <text x="10" y="16">支路2: ──[S1:開]──[S2:閉]── (斷路 ✕)</text>
-                  <text x="10" y="32">支路4: ──[S1:閉]──[S2:開]── (斷路 ✕)</text>
-                  <text x="10" y="48" font-weight="bold" fill="#16a34a">支路5: ──[S1:閉]──[S2:閉]── (通路 💡 綠燈點亮)</text>
-                  <text x="10" y="64">支路7: ──[S1:開]──[S2:開]── (斷路 ✕)</text>
+                  <text x="10" y="16">支路2: ──[S1:開]──[S2:閉]── (斷電✕ 燈滅)</text>
+                  <text x="10" y="32">支路4: ──[S1:閉]──[S2:開]── (斷電✕ 燈滅)</text>
+                  <text x="10" y="48" font-weight="bold" fill="#16a34a">支路5: ──[S1:閉]──[S2:閉]── (通電💡 綠燈亮起！)</text>
+                  <text x="10" y="64">支路7: ──[S1:開]──[S2:開]── (斷電✕ 燈滅)</text>
                 </g>
               </svg>
             </div>
-            <div class="calc-hint">
-              💡 <strong>迴路法則</strong>：任一開關斷開即形成斷路。<br>
-              排查唯一能形成完整閉合迴路之支路代號。
+            <div class="game-rule-hint">
+              🎲 <strong>邏輯開關眼</strong>：誰才是那條「電流完全暢通無阻、燈泡發光」的唯一幸運支路號碼？
             </div>
           </div>
-          <div class="ans-row">
-            <span>👉 密碼第 5 位數 ＝</span>
-            <span class="code-input-blank"></span>
+          <div class="game-ans-slot">
+            <span>👉 點亮綠燈的支路代號 ＝</span>
+            <span class="ans-input-circle"></span>
           </div>
         </div>
 
-        <!-- 關卡 ⑥ 水箱展開圖與浮力 -->
-        <div class="puzzle-card">
+        <!-- 遊戲 ⑥：潛水鐘烏鴉喝水浮沉子 -->
+        <div class="game-card">
           <div>
-            <div class="puzzle-title">
-              <span>⑥ 水箱展開圖與浮力平衡</span>
-              <span class="action-tag">算長方體容積與排水量</span>
+            <div class="game-title">
+              <span>遊戲 ⑥：達文西懸浮潛水鐘</span>
+              <span class="game-badge">空間展開摺疊</span>
             </div>
-            <p class="puzzle-desc">
-              潛水鐘長方體展開圖：底面長 3cm、寬 2cm、高 3cm（容積 18cm³，最大浮力 18g）。外殼金屬自重 14g。欲達「懸浮（浮力＝重力）」，需吸入多少克壓載水？
+            <p class="game-instruction">
+              🎮 <strong>空間容積任務</strong>：潛水鐘展開圖（底 3×2、高 3）摺成水箱容積是 18cm³，能排開 18g 的水獲得 18g 浮力！金屬外殼重 14g，水箱要吸入多少克水才能剛好「懸浮」在水中？
             </p>
-            <!-- 展開圖大圖 -->
-            <div class="diagram-box">
+            <div class="game-canvas-box">
               <svg width="260" height="72" viewBox="0 0 260 72">
-                <!-- 立方展開十字 -->
                 <rect x="70" y="8" width="28" height="18" fill="#e2e8f0" stroke="#475569" stroke-width="1.2"/>
                 <rect x="42" y="26" width="28" height="26" fill="#e2e8f0" stroke="#475569" stroke-width="1.2"/>
                 <rect x="70" y="26" width="28" height="26" fill="#bfdbfe" stroke="#1d4ed8" stroke-width="1.5"/>
-                <text x="84" y="42" font-size="8" fill="#1e40af" text-anchor="middle">底面</text>
+                <text x="84" y="42" font-size="8" fill="#1e40af" text-anchor="middle">水箱底</text>
                 <rect x="98" y="26" width="28" height="26" fill="#e2e8f0" stroke="#475569" stroke-width="1.2"/>
                 <rect x="126" y="26" width="28" height="26" fill="#e2e8f0" stroke="#475569" stroke-width="1.2"/>
                 <rect x="70" y="52" width="28" height="18" fill="#e2e8f0" stroke="#475569" stroke-width="1.2"/>
-                <!-- 尺寸與浮力文字 -->
-                <text x="165" y="25" font-size="8" fill="#334155">容積 V = 3×2×3 = 18 cm³</text>
-                <text x="165" y="42" font-size="8" fill="#0284c7">最大排開液重 = 18 gw</text>
-                <text x="165" y="58" font-size="8.5" font-weight="bold" fill="#e11d48">需注水 W = 18 - 14 = ?</text>
+                <!-- 文字 -->
+                <text x="165" y="25" font-size="8" fill="#334155">總容積 = 18 cm³</text>
+                <text x="165" y="42" font-size="8" fill="#0284c7">最大排水浮力 = 18 g</text>
+                <text x="165" y="58" font-size="8.5" font-weight="bold" fill="#e11d48">需吸水量 = 18 - 14 = ?</text>
               </svg>
             </div>
-            <div class="calc-hint">
-              💡 <strong>阿基米德中性浮力</strong>：總重量 $= \text{最大浮力}$<br>
-              外殼 14g ＋ 壓載水 $X\text{g} = 18\text{g} \implies X = $？
+            <div class="game-rule-hint">
+              🎲 <strong>中性浮力天平</strong>：總重力必須剛好等於 18g 浮力！外殼已經佔了 14g，還要再吸入幾克水？
             </div>
           </div>
-          <div class="ans-row">
-            <span>👉 密碼第 6 位數 ＝</span>
-            <span class="code-input-blank"></span>
+          <div class="game-ans-slot">
+            <span>👉 需注入壓載水克數 ＝</span>
+            <span class="ans-input-circle"></span>
           </div>
         </div>
 
-        <!-- 關卡 ⑦ 斜面捲筆螺旋實驗 -->
-        <div class="puzzle-card">
+        <!-- 遊戲 ⑦：✂️ 斯巴達捲筆間諜密碼棒 -->
+        <div class="game-card">
           <div>
-            <div class="puzzle-title">
-              <span>⑦ 斜面捲筆螺旋實驗</span>
-              <span class="action-tag cut">✂️ 剪下頁底紙條捲筆</span>
+            <div class="game-title">
+              <span>遊戲 ⑦：斯巴達筆桿螺旋字謎</span>
+              <span class="game-badge cut">✂️ 剪下頁底紙條捲在筆上</span>
             </div>
-            <p class="puzzle-desc">
-              請用剪刀沿虛線剪下本頁最下方的直角三角形紙條（底 28cm、高 4cm），緊密捲在圓形原子筆桿上，親眼觀察「斜面如何轉化為達文西螺旋」！
+            <p class="game-instruction">
+              🎮 <strong>特工操作</strong>：拿剪刀沿著本頁最下方的虛線，剪下那條長長的直角三角形！緊緊斜著捲在圓形原子筆桿上，親眼看著散亂的線條在筆桿上「自動對齊拼出一個數字」！
             </p>
-            <!-- 斜面捲筆大圖 -->
-            <div class="diagram-box">
+            <div class="game-canvas-box">
               <svg width="260" height="70" viewBox="0 0 260 70">
-                <!-- 三角形與筆桿 -->
                 <polygon points="15,48 140,48 140,12" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
-                <text x="75" y="42" font-size="8.5" fill="#92400e">底邊長 L = 28 cm</text>
+                <text x="75" y="42" font-size="8.5" fill="#92400e">底邊長 28 cm</text>
                 <text x="145" y="32" font-size="8.5" fill="#dc2626">高 4cm</text>
-                <!-- 捲在筆桿上的螺旋示意 -->
+                <!-- 筆桿 -->
                 <rect x="175" y="8" width="12" height="52" fill="#cbd5e1" stroke="#334155" rx="3"/>
                 <path d="M 175 16 Q 181 22 187 28 M 175 32 Q 181 38 187 44" stroke="#d97706" stroke-width="2.5" fill="none"/>
-                <text x="215" y="34" font-size="8.5" fill="#b45309" text-anchor="middle">捲成螺旋線</text>
+                <text x="215" y="34" font-size="8.5" fill="#b45309" text-anchor="middle">筆桿顯露密碼</text>
               </svg>
             </div>
-            <div class="calc-hint">
-              💡 <strong>斜面機械利益</strong>：省力倍數 $= \text{斜面底長} / \text{垂直高度}$<br>
-              算式：$28\text{cm} / 4\text{cm} = $？
+            <div class="game-rule-hint">
+              🎲 <strong>古希臘特工密碼棒</strong>：底長 28cm 被高度 4cm 的螺旋一圈圈捲繞，這把螺旋斜面的省力放大倍數（28÷4）是多少？
             </div>
           </div>
-          <div class="ans-row">
-            <span>👉 密碼第 7 位數 ＝</span>
-            <span class="code-input-blank"></span>
+          <div class="game-ans-slot">
+            <span>👉 筆桿螺旋省力倍數 ＝</span>
+            <span class="ans-input-circle"></span>
           </div>
         </div>
 
-        <!-- 關卡 ⑧ 磁極相吸相斥鏈 -->
-        <div class="puzzle-card">
+        <!-- 遊戲 ⑧：磁鐵相吸相斥推推棋 -->
+        <div class="game-card">
           <div>
-            <div class="puzzle-title">
-              <span>⑧ 磁極連鎖相吸相斥</span>
-              <span class="action-tag">推論各磁鐵兩極</span>
+            <div class="game-title">
+              <span>遊戲 ⑧：磁力軌道推推樂</span>
+              <span class="game-badge">異極吸·同極斥</span>
             </div>
-            <p class="puzzle-desc">
-              滑軌上有 4 顆環形磁鐵：1-2 相吸緊貼、2-3 相斥懸空、3-4 相吸緊貼。已知 1 號最左端是 <strong>N 極</strong>，求 4 號最右端極性代碼（N極=1, S極=0）？
+            <p class="game-instruction">
+              🎮 <strong>軌道推推任務</strong>：4 顆環形磁鐵串在滑軌上。1-2 相吸緊貼、2-3 隔空相斥、3-4 相吸緊貼。已知 1 號最左端是 <strong>N 極</strong>，4 號最右端是什麼極（N極=1, S極=0）？
             </p>
-            <!-- 磁鐵大圖 -->
-            <div class="diagram-box">
+            <div class="game-canvas-box">
               <svg width="260" height="70" viewBox="0 0 260 70">
-                <!-- 滑軌桿 -->
                 <line x1="10" y1="35" x2="250" y2="35" stroke="#94a3b8" stroke-width="4"/>
                 <!-- 1號 -->
                 <rect x="18" y="20" width="18" height="30" fill="#ef4444" stroke="#991b1b"/><text x="27" y="38" font-size="9" fill="#fff" text-anchor="middle" font-weight="bold">N</text>
                 <rect x="36" y="20" width="18" height="30" fill="#3b82f6" stroke="#1e40af"/><text x="45" y="38" font-size="9" fill="#fff" text-anchor="middle" font-weight="bold">S</text>
-                <!-- 2號 (緊吸) -->
+                <!-- 2號 (吸) -->
                 <rect x="54" y="20" width="18" height="30" fill="#ef4444" stroke="#991b1b"/><text x="63" y="38" font-size="9" fill="#fff" text-anchor="middle" font-weight="bold">N</text>
                 <rect x="72" y="20" width="18" height="30" fill="#3b82f6" stroke="#1e40af"/><text x="81" y="38" font-size="9" fill="#fff" text-anchor="middle" font-weight="bold">S</text>
-                <!-- 懸空間距 (斥力) -->
-                <text x="105" y="38" font-size="9" fill="#e11d48" font-weight="bold" text-anchor="middle">⟷ 斥力</text>
+                <!-- 斥力標籤 -->
+                <text x="105" y="38" font-size="9" fill="#e11d48" font-weight="bold" text-anchor="middle">⟷ 懸空相斥</text>
                 <!-- 3號 -->
                 <rect x="130" y="20" width="18" height="30" fill="#3b82f6" stroke="#1e40af"/><text x="139" y="38" font-size="9" fill="#fff" text-anchor="middle" font-weight="bold">S</text>
                 <rect x="148" y="20" width="18" height="30" fill="#ef4444" stroke="#991b1b"/><text x="157" y="38" font-size="9" fill="#fff" text-anchor="middle" font-weight="bold">N</text>
-                <!-- 4號 (緊吸) -->
+                <!-- 4號 (吸) -->
                 <rect x="166" y="20" width="18" height="30" fill="#3b82f6" stroke="#1e40af"/><text x="175" y="38" font-size="9" fill="#fff" text-anchor="middle" font-weight="bold">S</text>
                 <rect x="184" y="20" width="18" height="30" fill="#fef08a" stroke="#ca8a04"/><text x="193" y="38" font-size="10" fill="#854d0e" text-anchor="middle" font-weight="bold">?</text>
               </svg>
             </div>
-            <div class="calc-hint">
-              💡 <strong>磁極法則</strong>：異極相吸、同極相斥。<br>
-              推導：1[N|S] ➜ 2[N|S] ➜ 3[S|N] ➜ 4[S|N]，末端為 N 極（代碼 1）。
+            <div class="game-rule-hint">
+              🎲 <strong>相吸異極跳步</strong>：1是[N|S] ➜ 2被吸住也是[N|S] ➜ 3被推開所以是[S|N] ➜ 4被吸住所以是[S|N]！最末端是哪個極？
             </div>
           </div>
-          <div class="ans-row">
-            <span>👉 密碼第 8 位數 ＝</span>
-            <span class="code-input-blank"></span>
+          <div class="game-ans-slot">
+            <span>👉 最右端極性代碼 ＝</span>
+            <span class="ans-input-circle"></span>
           </div>
         </div>
 
       </div>
     </div>
 
-    <!-- 反面核心：終極 8 位數彙整金鑰與驗收核章 -->
-    <div class="master-code-bar">
+    <!-- 反面底層：終極 8 位數解密大保險箱 -->
+    <div class="vault-master-bar">
       <div>
-        <div class="master-title">FINAL ESCAPE PROTOCOL · 8-DIGIT MASTER KEY</div>
-        <div class="master-heading">🔐 最終全桌 8 位數逃脫金鑰：</div>
+        <div class="vault-title">DA VINCI CIPHER VAULT · 8-DIGIT MASTER KEY</div>
+        <div class="vault-heading">🔐 全桌 8 位數終極逃脫金鑰：</div>
       </div>
-      <div class="code-boxes">
-        <div class="box-item"></div>
-        <div class="box-item"></div>
-        <div class="box-item"></div>
-        <div class="box-item"></div>
-        <span style="font-weight:900; font-size:1.4rem; color:#94a3b8;">－</span>
-        <div class="box-item"></div>
-        <div class="box-item"></div>
-        <div class="box-item"></div>
-        <div class="box-item"></div>
+      <div class="vault-slots">
+        <div class="vault-slot-item"></div>
+        <div class="vault-slot-item"></div>
+        <div class="vault-slot-item"></div>
+        <div class="vault-slot-item"></div>
+        <span style="font-weight:900; font-size:1.3rem; color:#94a3b8;">－</span>
+        <div class="vault-slot-item"></div>
+        <div class="vault-slot-item"></div>
+        <div class="vault-slot-item"></div>
+        <div class="vault-slot-item"></div>
       </div>
-      <div class="stamp-box">
-        終端機過關核章<br>
-        (過關核章 +10分)
+      <div class="teacher-stamp-box">
+        大螢幕過關核章<br>
+        (核章加榮譽 10分)
       </div>
     </div>
 
-    <!-- 頁面底端：✂️ 實體剪裁區（足夠高度 50px，虛線邊緣，絕不壓迫題目） -->
-    <div class="cutout-strip-area">
-      <div class="cutout-title">
-        <span>✂️ 實作剪裁專區（關卡⑦斜面捲筆專用）：請用剪刀沿著下方虛線剪下這條直角三角形，緊密捲在原子筆桿上親驗螺旋！</span>
-        <span style="color:#b45309; font-size:0.75rem;">直角邊長：底 28cm × 高 4cm</span>
+    <!-- 頁底實作剪裁區（斯巴達捲筆螺旋條） -->
+    <div class="spartan-strip-area">
+      <div class="spartan-title">
+        <span>✂️ 實體特工剪裁區（遊戲 ⑦ 斯巴達筆桿螺旋紙條）：請用剪刀沿著下方虛線剪下，緊密斜向捲在原子筆桿上親睹螺旋！</span>
+        <span style="color:#b45309; font-size:0.75rem;">直角三角形：底 28cm × 高 4cm</span>
       </div>
       <svg width="100%" height="45" viewBox="0 0 740 45" style="display:block;">
         <polygon points="5,40 735,40 735,5" fill="#fef08a" stroke="#d97706" stroke-width="1.8" stroke-dasharray="5,4"/>
-        <text x="320" y="32" font-size="11" fill="#92400e" font-weight="bold">✂️ 沿虛線剪下此三角形 ➜ 緊密捲在圓形原子筆桿上 ➜ 計算斜面省力倍數 (28÷4)</text>
+        <text x="320" y="32" font-size="11" fill="#92400e" font-weight="bold">✂️ 沿虛線剪下此三角形 ➜ 緊密斜捲在原子筆桿上 ➜ 筆桿上顯露省力倍數 (28÷4)</text>
       </svg>
     </div>
 
