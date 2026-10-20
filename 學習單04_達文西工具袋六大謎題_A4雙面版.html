@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>【破譯卷軸】達文西的神秘裝備袋：六大機關破譯手稿（A4 雙面列印版）</title>
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 10mm 12mm;
+    }
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+      color: #0f172a;
+      background: #334155;
+      margin: 0;
+      padding: 20px 8px;
+      line-height: 1.45;
+    }
+
+    /* 列印控制導航列 */
+    .print-bar {
+      max-width: 860px;
+      margin: 0 auto 16px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #0f172a;
+      padding: 12px 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+    .print-tip {
+      color: #cbd5e1;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    .print-btn {
+      background: #f59e0b;
+      color: #0f172a;
+      border: none;
+      padding: 9px 24px;
+      font-size: 0.98rem;
+      font-weight: 900;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
+    }
+    .print-btn:hover { background: #fbbf24; transform: translateY(-1px); }
+
+    /* A4 單頁容器（雙面版：第 1 頁正面、第 2 頁反面） */
+    .page-sheet {
+      width: 210mm;
+      min-height: 288mm;
+      max-width: 100%;
+      margin: 0 auto 24px auto;
+      background: #fff;
+      padding: 14mm 14mm 12mm 14mm;
+      border-radius: 6px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* 頂部 Header */
+    .sheet-header {
+      border-bottom: 2.5px solid #0f172a;
+      padding-bottom: 6px;
+      margin-bottom: 10px;
+    }
+    .header-tagline {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: #b45309;
+      letter-spacing: 1px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .sheet-title {
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: #0f172a;
+      margin: 2px 0 6px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .page-badge {
+      font-size: 0.82rem;
+      font-weight: 900;
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 2px 10px;
+      border-radius: 12px;
+    }
+    .info-bar {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.86rem;
+      font-weight: 700;
+      background: #f8fafc;
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+    }
+
+    /* 工具袋探險警報盒 */
+    .toolbag-alert-box {
+      background: #fffbeb;
+      border-left: 5px solid #d97706;
+      border-radius: 6px;
+      padding: 9px 12px;
+      margin-bottom: 12px;
+      font-size: 0.82rem;
+      color: #78350f;
+      line-height: 1.45;
+    }
+
+    /* 3 題網格（每頁 3 大題，垂直排列寬敞大氣） */
+    .riddles-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex: 1;
+      margin-bottom: 10px;
+    }
+    .riddle-card {
+      border: 1.8px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 12px 16px;
+      background: #fafafa;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .riddle-main {
+      flex: 1;
+    }
+    .riddle-title {
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: #0f172a;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1.5px dashed #cbd5e1;
+      padding-bottom: 4px;
+    }
+    .riddle-tag {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fde68a;
+    }
+    .riddle-poem {
+      font-size: 0.86rem;
+      color: #334155;
+      margin: 0 0 6px 0;
+      line-height: 1.55;
+      font-style: italic;
+    }
+    .riddle-task {
+      font-size: 0.82rem;
+      color: #0f172a;
+      font-weight: 700;
+      margin: 0;
+      background: #f1f5f9;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+
+    /* 右側操作圖示與填答欄 */
+    .riddle-side {
+      width: 170px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .riddle-icon-box {
+      width: 100%;
+      height: 72px;
+      background: #fff;
+      border: 1.2px solid #e2e8f0;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+    }
+    .riddle-ans-box {
+      width: 100%;
+      background: #eff6ff;
+      border: 1.5px solid #bfdbfe;
+      border-radius: 6px;
+      padding: 5px 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 900;
+      color: #1e3a8a;
+      font-size: 0.85rem;
+    }
+    .ans-slot-circle {
+      width: 42px;
+      height: 30px;
+      line-height: 28px;
+      border: 2px solid #2563eb;
+      background: #fff;
+      border-radius: 6px;
+      text-align: center;
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: #0f172a;
+    }
+
+    /* 正面翻頁引導條 */
+    .flip-page-bar {
+      border: 2px dashed #94a3b8;
+      border-radius: 6px;
+      padding: 8px 14px;
+      background: #f8fafc;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: #475569;
+    }
+    .subcode-preview {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .mini-box {
+      width: 26px;
+      height: 28px;
+      line-height: 26px;
+      border: 1.5px solid #64748b;
+      background: #fff;
+      border-radius: 4px;
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 900;
+    }
+
+    /* 反面底層：六位數密碼鎖驗收台 */
+    .vault-master-bar {
+      border: 2.5px solid #0f172a;
+      border-radius: 8px;
+      padding: 10px 16px;
+      background: #f8fafc;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 6px;
+    }
+    .vault-title {
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #64748b;
+    }
+    .vault-heading {
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: #0f172a;
+    }
+    .vault-slots {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .vault-slot-item {
+      width: 36px;
+      height: 44px;
+      line-height: 40px;
+      border: 2px solid #0f172a;
+      background: #fff;
+      border-radius: 6px;
+      text-align: center;
+      font-size: 1.45rem;
+      font-weight: 900;
+    }
+    .teacher-stamp-box {
+      width: 110px;
+      height: 46px;
+      border: 2px dashed #94a3b8;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.74rem;
+      color: #64748b;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .print-bar { display: none !important; }
+      .page-sheet {
+        width: 100%;
+        min-height: auto;
+        height: 275mm;
+        margin: 0;
+        padding: 10mm 12mm;
+        box-shadow: none;
+        border: none;
+        page-break-after: always;
+        break-after: page;
+      }
+      .page-sheet:last-child {
+        page-break-after: avoid;
+        break-after: avoid;
+      }
+      .riddle-card { border-color: #000; background: #fff !important; }
+      .vault-master-bar { border-color: #000; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部列印功能列 -->
+  <div class="print-bar">
+    <div class="print-tip">
+      🎲 實體工具袋密室卡：請選 <strong>「雙面列印（長邊翻頁）」</strong>，A4 紙一張正反兩面！
+    </div>
+    <div>
+      <button class="print-btn" onclick="window.print()">🖨️ 列印此雙面破譯卡</button>
+      <a href="達文西密碼鎖_六位數逃脫終端機.html" target="_blank" style="margin-left: 12px; text-decoration: none; font-weight: 900; color: #38bdf8; font-size: 0.9rem;">🖥️ 開啟六位數大螢幕終端機 ➜</a>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- 📄 第 1 頁（正面）：古卷破譯 · 前三道機關（謎題 ① ～ ③） -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="page-sheet">
+    <div>
+      <!-- 標頭 -->
+      <div class="sheet-header">
+        <div class="header-tagline">
+          <span>DA VINCI CODEX · STEAM 創客探險社團 第 06 週「解謎篇」</span>
+          <span style="color:#0284c7;">【正面 · 第一卷軸】</span>
+        </div>
+        <div class="sheet-title">
+          <span>🗝️ 達文西的神秘裝備袋：六大機關破譯手稿</span>
+          <span class="page-badge">第 1 頁 / 共 2 頁</span>
+        </div>
+        <div class="info-bar">
+          <span>桌號：第【＿＿】大桌</span>
+          <span>隊長（領航員）：＿＿＿＿＿＿</span>
+          <span>特工隊員：＿＿＿＿、＿＿＿＿、＿＿＿＿</span>
+          <span>解鎖耗時：＿＿:＿＿</span>
+        </div>
+      </div>
+
+      <!-- 工具袋警報導讀 -->
+      <div class="toolbag-alert-box">
+        🎒 <strong>裝備袋指南</strong>：每組桌上皆有一包「達文西神秘工具袋」。袋中裝滿各色器具，但<strong>暗藏虛假迷霧，有些工具根本用不上</strong>！請細讀古卷謎語，唯有慧眼辨識出真正信物並動手操作，方能奪取 6 位數密碼！
+      </div>
+
+      <!-- 正面三道謎題清單 -->
+      <div class="riddles-list">
+
+        <!-- 謎題 ①：深淵繫繩 -->
+        <div class="riddle-card">
+          <div class="riddle-main">
+            <div class="riddle-title">
+              <span>【謎題一】深淵之繫繩</span>
+              <span class="riddle-tag">非標準度量探究</span>
+            </div>
+            <p class="riddle-poem">
+              「工坊深淵橫亙在前，想要搭建懸空吊橋，必須精準丈量那條蜿蜒的繫繩。<br>
+              請勿動用凡人的刻度之尺！在袋中尋覓那根『能吸取甘泉的彩色中空骨管』。<br>
+              以此骨管為度量基石，頭尾緊扣丈量整條繫繩，其完整倍率之印記為何？」
+            </p>
+            <p class="riddle-task">
+              🎯 <strong>探員動作</strong>：從袋中找出該繫繩與中空骨管，量測整條繫繩等於幾倍骨管長（取整數）。
+            </p>
+          </div>
+          <div class="riddle-side">
+            <div class="riddle-icon-box">
+              <svg width="150" height="55" viewBox="0 0 150 55">
+                <path d="M 10 35 Q 40 10 75 35 T 140 35" fill="none" stroke="#b45309" stroke-width="3.5" stroke-dasharray="4,2"/>
+                <rect x="25" y="10" width="45" height="8" fill="#38bdf8" stroke="#0284c7" rx="2"/>
+                <text x="47" y="17" font-size="7" fill="#fff" text-anchor="middle">中空骨管</text>
+              </svg>
+            </div>
+            <div class="riddle-ans-box">
+              <span>👉 繫繩倍數 ＝</span>
+              <span class="ans-slot-circle"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 謎題 ②：逆行光陰 -->
+        <div class="riddle-card">
+          <div class="riddle-main">
+            <div class="riddle-title">
+              <span>【謎題二】逆行光陰之鑑</span>
+              <span class="riddle-tag">鏡像空間反轉</span>
+            </div>
+            <p class="riddle-poem">
+              「光陰羅盤在此刻凝固於『午後三時三十分（15:30）』。<br>
+              但在達文西的密室中，眼見皆為虛妄，唯有真實的反面方為真理。<br>
+              自袋中取出那面『映照靈魂真實的平滑冰晶之鑑』，置於光陰羅盤正前方。<br>
+              直視鏡中逆行世界，長短雙針在左右倒置中，形影合聚成哪一個神聖數字？」
+            </p>
+            <p class="riddle-task">
+              🎯 <strong>探員動作</strong>：拿出袋中的冰晶之鑑，照著 15:30 羅盤，觀察長短針在鏡中看起來像何數字。
+            </p>
+          </div>
+          <div class="riddle-side">
+            <div class="riddle-icon-box">
+              <svg width="150" height="55" viewBox="0 0 150 55">
+                <circle cx="45" cy="28" r="22" fill="#f8fafc" stroke="#334155" stroke-width="1.8"/>
+                <line x1="45" y1="28" x2="62" y2="34" stroke="#0f172a" stroke-width="2.5"/>
+                <line x1="45" y1="28" x2="45" y2="46" stroke="#0f172a" stroke-width="2"/>
+                <line x1="82" y1="6" x2="82" y2="50" stroke="#0284c7" stroke-width="2.5" stroke-dasharray="3,2"/>
+                <text x="115" y="32" font-size="10" font-weight="bold" fill="#0284c7" text-anchor="middle">鏡中形影?</text>
+              </svg>
+            </div>
+            <div class="riddle-ans-box">
+              <span>👉 鏡中顯露形影 ＝</span>
+              <span class="ans-slot-circle"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 謎題 ③：審判之秤 -->
+        <div class="riddle-card">
+          <div class="riddle-main">
+            <div class="riddle-title">
+              <span>【謎題三】黃金審判之秤</span>
+              <span class="riddle-tag">力矩重力平衡</span>
+            </div>
+            <p class="riddle-poem">
+              「審判橫木絕不容許絲毫偏頗。<br>
+              左端之盤已落下一枚『至尊千金之璽』，令天平深陷沈重。<br>
+              你必須在右盤放入一枚『半百之印』，並自袋中尋覓數枚『最小的拾階圓幣』相佐，<br>
+              直至兩端橫木重歸絕對水平靜止！算一算，右盤之中最終承載了幾枚信物？」
+            </p>
+            <p class="riddle-task">
+              🎯 <strong>探員動作</strong>：在天平左盤放 1 枚一千；右盤放 1 枚五十，並加入數枚十元至剛好平衡，數出右盤總枚數。
+            </p>
+          </div>
+          <div class="riddle-side">
+            <div class="riddle-icon-box">
+              <svg width="150" height="55" viewBox="0 0 150 55">
+                <line x1="20" y1="25" x2="130" y2="25" stroke="#0f172a" stroke-width="3"/>
+                <polygon points="75,26 67,46 83,46" fill="#e11d48"/>
+                <rect x="25" y="10" width="16" height="15" fill="#f59e0b" rx="2"/><text x="33" y="21" font-size="8" fill="#fff" text-anchor="middle">千金</text>
+                <text x="110" y="20" font-size="8" font-weight="bold" fill="#2563eb" text-anchor="middle">半百+拾階?</text>
+              </svg>
+            </div>
+            <div class="riddle-ans-box">
+              <span>👉 右盤信物枚數 ＝</span>
+              <span class="ans-slot-circle"></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 正面底部 -->
+    <div class="flip-page-bar">
+      <div class="subcode-preview">
+        <span>【前三道機關破譯成果】：</span>
+        <div class="mini-box"></div>
+        <div class="mini-box"></div>
+        <div class="mini-box"></div>
+      </div>
+      <div style="color: #0284c7; font-size: 0.9rem;">
+        請翻至背面繼續破解後三道古卷 ➜
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- 📄 第 2 頁（反面）：古卷破譯 · 後三道機關（謎題 ④ ～ ⑥） -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="page-sheet">
+    <div>
+      <!-- 標頭 -->
+      <div class="sheet-header">
+        <div class="header-tagline">
+          <span>DA VINCI CODEX · STEAM 創客探險社團 第 06 週「解謎篇」</span>
+          <span style="color:#d97706;">【反面 · 第二卷軸】</span>
+        </div>
+        <div class="sheet-title">
+          <span>🗝️ 達文西的神秘裝備袋：終極機關與逃脫金鑰</span>
+          <span class="page-badge">第 2 頁 / 共 2 頁</span>
+        </div>
+      </div>
+
+      <!-- 反面三道謎題清單 -->
+      <div class="riddles-list">
+
+        <!-- 謎題 ④：命運旋輪 -->
+        <div class="riddle-card">
+          <div class="riddle-main">
+            <div class="riddle-title">
+              <span>【謎題四】高懸命運旋輪</span>
+              <span class="riddle-tag">滑輪重力對決</span>
+            </div>
+            <p class="riddle-poem">
+              「高懸於橫樑上的『固定旋輪』只改換方向，不曾減損分毫重力。<br>
+              自袋中取出一根絲線穿過旋輪，一端垂掛那隻『金羽涉水之幼禽』；<br>
+              而在絲線的另一端，你需要一片接一片垂掛多少枚『六角寒冬冰晶之瓣』，<br>
+              方能使這隻金羽生靈在空中達到平分秋色的靜止懸浮？」
+            </p>
+            <p class="riddle-task">
+              🎯 <strong>探員動作</strong>：組裝固定旋輪，一端掛小鴨，另一端掛上雪花片直到水平平衡，計數雪花片數量。
+            </p>
+          </div>
+          <div class="riddle-side">
+            <div class="riddle-icon-box">
+              <svg width="150" height="55" viewBox="0 0 150 55">
+                <circle cx="75" cy="18" r="12" fill="#f1f5f9" stroke="#0f172a" stroke-width="2"/>
+                <line x1="63" y1="18" x2="63" y2="48" stroke="#334155" stroke-width="1.5"/>
+                <line x1="87" y1="18" x2="87" y2="48" stroke="#334155" stroke-width="1.5"/>
+                <rect x="56" y="38" width="14" height="12" fill="#facc15" rx="3"/><text x="63" y="47" font-size="7" text-anchor="middle">小鴨</text>
+                <text x="87" y="46" font-size="8" font-weight="bold" fill="#0284c7" text-anchor="middle">?片</text>
+              </svg>
+            </div>
+            <div class="riddle-ans-box">
+              <span>👉 冰晶之瓣數量 ＝</span>
+              <span class="ans-slot-circle"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 謎題 ⑤：琉璃浮舟 -->
+        <div class="riddle-card">
+          <div class="riddle-main">
+            <div class="riddle-title">
+              <span>【謎題五】琉璃浮舟之泉</span>
+              <span class="riddle-tag">流體浮力躍升</span>
+            </div>
+            <p class="riddle-poem">
+              「透明的『空心琉璃之舟』正沉眠於乾涸的刻度之壇中。<br>
+              緩緩為壇中注入甘泉，直至小舟底艙輕盈浮離地面、完全漂浮於水波之上！<br>
+              凝視此刻甘泉達到的整數毫升刻度——<br>
+              將該刻度數值的十位與個位『拆開雙生相加』，合而為一的真理數字為何？」
+            </p>
+            <p class="riddle-task">
+              🎯 <strong>探員動作</strong>：將空玻璃瓶置於大量杯中注水，直到瓶子漂浮，記錄毫升刻度並拆開十位與個位相加。
+            </p>
+          </div>
+          <div class="riddle-side">
+            <div class="riddle-icon-box">
+              <svg width="150" height="55" viewBox="0 0 150 55">
+                <rect x="55" y="10" width="40" height="40" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.5"/>
+                <rect x="68" y="24" width="14" height="20" fill="#e2e8f0" stroke="#475569" rx="2"/>
+                <line x1="50" y1="28" x2="60" y2="28" stroke="#0284c7" stroke-width="1.5"/><text x="44" y="31" font-size="7" fill="#0284c7">刻度</text>
+                <text x="75" y="19" font-size="7.5" fill="#0284c7" text-anchor="middle">浮起!</text>
+              </svg>
+            </div>
+            <div class="riddle-ans-box">
+              <span>👉 刻度拆開相加 ＝</span>
+              <span class="ans-slot-circle"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 謎題 ⑥：三星法陣 -->
+        <div class="riddle-card">
+          <div class="riddle-main">
+            <div class="riddle-title">
+              <span>【謎題六】三星幾何法陣</span>
+              <span class="riddle-tag">幾何星芒陣法</span>
+            </div>
+            <p class="riddle-poem">
+              「喚醒大、中、小三尊『古老齒刻旋盤』，依序安置於『刻度界碑』之對應刻度。<br>
+              觀察各旋盤——將盤面星穴逆時針旋轉至最貼近界碑上最近的數字固定，<br>
+              在外圈星穴處以墨筆點下三枚星芒。拿筆將三點連成神聖的三角法陣，<br>
+              以界碑丈量此法陣『最長的一條光之稜線』，長度幾何？」
+            </p>
+            <p class="riddle-task">
+              🎯 <strong>探員動作</strong>：將三顆齒輪依指示置於尺上，逆時針轉至最外洞最靠近尺上數字，在洞中點點連成三角形，量最長邊。
+            </p>
+          </div>
+          <div class="riddle-side">
+            <div class="riddle-icon-box">
+              <svg width="150" height="55" viewBox="0 0 150 55">
+                <line x1="10" y1="42" x2="140" y2="42" stroke="#0f172a" stroke-width="2"/>
+                <polygon points="35,32 75,12 115,35" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+                <circle cx="35" cy="32" r="3" fill="#ea580c"/>
+                <circle cx="75" cy="12" r="3" fill="#ea580c"/>
+                <circle cx="115" cy="35" r="3" fill="#ea580c"/>
+                <text x="75" y="48" font-size="7.5" font-weight="bold" fill="#d97706" text-anchor="middle">最長邊長度?</text>
+              </svg>
+            </div>
+            <div class="riddle-ans-box">
+              <span>👉 最長邊長度 ＝</span>
+              <span class="ans-slot-circle"></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 反面底層：六位數密碼鎖終局 -->
+    <div class="vault-master-bar">
+      <div>
+        <div class="vault-title">DA VINCI ESCAPE CIPHER · 6-DIGIT PROTOCOL</div>
+        <div class="vault-heading">🔐 全桌 6 位數終極逃脫金鑰：</div>
+      </div>
+      <div class="vault-slots">
+        <div class="vault-slot-item"></div>
+        <div class="vault-slot-item"></div>
+        <div class="vault-slot-item"></div>
+        <span style="font-weight:900; font-size:1.3rem; color:#94a3b8;">－</span>
+        <div class="vault-slot-item"></div>
+        <div class="vault-slot-item"></div>
+        <div class="vault-slot-item"></div>
+      </div>
+      <div class="teacher-stamp-box">
+        大螢幕過關核章<br>
+        (核章加榮譽 10分)
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
