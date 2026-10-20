@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>【學生印這張】達文西雙面學習單（正面七道謎題／背面二十三項物件清單）</title>
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 8mm 10mm;
+    }
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+      color: #0f172a;
+      background: #334155;
+      margin: 0;
+      padding: 16px 8px;
+      line-height: 1.38;
+    }
+
+    /* 列印功能列 */
+    .print-bar {
+      max-width: 860px;
+      margin: 0 auto 14px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #0f172a;
+      padding: 10px 18px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .print-tip {
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+    .print-btn {
+      background: #f59e0b;
+      color: #0f172a;
+      border: none;
+      padding: 8px 22px;
+      font-size: 0.95rem;
+      font-weight: 900;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .print-btn:hover { background: #fbbf24; }
+
+    /* A4 單頁容器（雙面：頁1正面、頁2背面） */
+    .page-sheet {
+      width: 210mm;
+      min-height: 288mm;
+      max-width: 100%;
+      margin: 0 auto 20px auto;
+      background: #fff;
+      padding: 10mm 12mm;
+      border-radius: 4px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* 標頭 */
+    .sheet-header {
+      border-bottom: 2px solid #0f172a;
+      padding-bottom: 4px;
+      margin-bottom: 6px;
+    }
+    .header-sub {
+      font-size: 0.76rem;
+      font-weight: 800;
+      color: #b45309;
+      letter-spacing: 1px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .sheet-title {
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: #0f172a;
+      margin: 2px 0 4px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .badge-page {
+      font-size: 0.78rem;
+      font-weight: 900;
+      background: #0f172a;
+      color: #fff;
+      padding: 2px 9px;
+      border-radius: 10px;
+    }
+    .info-bar {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      font-weight: 700;
+      background: #f8fafc;
+      padding: 4px 10px;
+      border-radius: 5px;
+      border: 1px solid #cbd5e1;
+    }
+
+    /* 警報欄 */
+    .alert-banner {
+      background: #fffbeb;
+      border-left: 4px solid #f59e0b;
+      border-radius: 4px;
+      padding: 6px 10px;
+      margin-bottom: 8px;
+      font-size: 0.78rem;
+      color: #78350f;
+      line-height: 1.35;
+    }
+
+    /* ══════ 正面：七道謎題（2列網格＋底欄） ══════ */
+    .riddles-grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 8px;
+      flex: 1;
+    }
+    .riddle-box {
+      border: 1.5px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 8px 10px;
+      background: #fafafa;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .riddle-h {
+      font-size: 0.92rem;
+      font-weight: 900;
+      color: #0f172a;
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1.2px dashed #cbd5e1;
+      padding-bottom: 3px;
+    }
+    .tag-mystery {
+      font-size: 0.68rem;
+      font-weight: 800;
+      background: #fef3c7;
+      color: #92400e;
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+    .riddle-p {
+      font-size: 0.78rem;
+      color: #334155;
+      margin: 0 0 5px 0;
+      line-height: 1.4;
+      font-style: italic;
+    }
+    .riddle-hint-line {
+      font-size: 0.74rem;
+      color: #0f172a;
+      font-weight: 700;
+      background: #f1f5f9;
+      padding: 3px 6px;
+      border-radius: 4px;
+      margin-bottom: 5px;
+    }
+    .riddle-ans-row {
+      background: #eff6ff;
+      border: 1.2px solid #bfdbfe;
+      border-radius: 5px;
+      padding: 4px 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 900;
+      color: #1e3a8a;
+      font-size: 0.82rem;
+    }
+    .ans-circle {
+      width: 36px;
+      height: 24px;
+      line-height: 22px;
+      border: 2px solid #2563eb;
+      background: #fff;
+      border-radius: 4px;
+      text-align: center;
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: #0f172a;
+    }
+
+    /* 正面第七題：全幅跨欄 */
+    .riddle-seven-box {
+      border: 1.8px solid #0284c7;
+      border-radius: 6px;
+      padding: 8px 12px;
+      background: #f0f9ff;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .seven-left { flex: 1; }
+    .seven-title {
+      font-size: 0.95rem;
+      font-weight: 900;
+      color: #0369a1;
+      margin-bottom: 3px;
+    }
+    .seven-desc {
+      font-size: 0.78rem;
+      color: #0c4a6e;
+      margin: 0;
+      line-height: 1.35;
+    }
+
+    /* 正面底部：終極 6 位數金鑰槽 */
+    .master-code-row {
+      border: 2px solid #0f172a;
+      border-radius: 6px;
+      padding: 6px 12px;
+      background: #f8fafc;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .slots-container {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .slot-block {
+      width: 32px;
+      height: 38px;
+      line-height: 34px;
+      border: 2px solid #0f172a;
+      background: #fff;
+      border-radius: 5px;
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: 900;
+    }
+    .stamp-area {
+      width: 100px;
+      height: 40px;
+      border: 1.8px dashed #94a3b8;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: #64748b;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    /* ══════ 背面：二十三項清單表格 ══════ */
+    .items-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.75rem;
+      margin-top: 4px;
+      flex: 1;
+    }
+    .items-table th {
+      background: #0f172a;
+      color: #fff;
+      padding: 5px 6px;
+      font-weight: 900;
+      text-align: left;
+      border: 1px solid #334155;
+    }
+    .items-table td {
+      padding: 3.5px 6px;
+      border: 1px solid #cbd5e1;
+      color: #1e293b;
+    }
+    .items-table tr:nth-child(even) {
+      background: #f8fafc;
+    }
+    .role-real {
+      color: #15803d;
+      font-weight: 900;
+    }
+    .role-trap {
+      color: #b91c1c;
+      font-weight: 900;
+    }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .print-bar { display: none !important; }
+      .page-sheet {
+        width: 100%;
+        min-height: auto;
+        height: 275mm;
+        margin: 0;
+        padding: 8mm 10mm;
+        box-shadow: none;
+        border: none;
+        page-break-after: always;
+        break-after: page;
+      }
+      .page-sheet:last-child {
+        page-break-after: avoid;
+        break-after: avoid;
+      }
+      .riddle-box { border-color: #000; background: #fff !important; }
+      .master-code-row { border-color: #000; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部列印功能列 -->
+  <div class="print-bar">
+    <div class="print-tip">
+      🖨️ 列印指引：選擇 <strong>「雙面列印（長邊翻頁）」</strong>，紙張選 <strong>A4</strong>，一張即可印出正面與背面！
+    </div>
+    <div>
+      <button class="print-btn" onclick="window.print()">🖨️ 立即列印此雙面學習單</button>
+      <a href="達文西終端機.html" target="_blank" style="margin-left: 12px; text-decoration: none; font-weight: 900; color: #38bdf8; font-size: 0.9rem;">🖥️ 開啟六位數大螢幕終端機 ➜</a>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- 📄 【A4 正面】：達文西的七道密室古卷謎題 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="page-sheet">
+    <div>
+      <!-- 標頭 -->
+      <div class="sheet-header">
+        <div class="header-sub">
+          <span>STEAM MAKER ADVENTURE · 國中社團第 06 週「解謎篇」</span>
+          <span style="color:#0284c7;">【正面 · 七大機關古卷】</span>
+        </div>
+        <div class="sheet-title">
+          <span>🗝️ 達文西神秘裝備袋：七大機關破譯手稿</span>
+          <span class="badge-page">正面 · 破譯卡</span>
+        </div>
+        <div class="info-bar">
+          <span>桌號：第【＿＿】大桌</span>
+          <span>隊長（領航員）：＿＿＿＿＿＿</span>
+          <span>特工隊員：＿＿＿＿、＿＿＿＿、＿＿＿＿</span>
+          <span>破譯耗時：＿＿:＿＿</span>
+        </div>
+      </div>
+
+      <!-- 警報導讀 -->
+      <div class="alert-banner">
+        🎒 <strong>裝備袋探索鐵律</strong>：每組桌上有一包「神秘工具袋」，內含各式信物，但<strong>暗藏虛假迷霧，許多道具根本用不上</strong>！請細讀古卷謎語，唯有慧眼辨識出真正神器並動手實測，方能奪取通關金鑰！
+      </div>
+
+      <!-- 謎題 1～6（2 欄排版） -->
+      <div class="riddles-grid-2col">
+
+        <!-- 謎題 ①：深淵繫繩 -->
+        <div class="riddle-box">
+          <div>
+            <div class="riddle-h">
+              <span>【謎題一】深淵之繫繩</span>
+              <span class="tag-mystery">度量之術</span>
+            </div>
+            <p class="riddle-p">
+              「深淵橫亙，想要搭建吊橋，必須精準丈量那條蜿蜒的繫繩。<br>
+              請勿動用凡人的刻度之尺！在袋中尋覓那根『能吸取甘泉的彩色中空骨管』。<br>
+              以此骨管為度量基石，頭尾緊扣丈量整條繫繩，其完整倍率之印記為何？」
+            </p>
+            <div class="riddle-hint-line">
+              🎯 <strong>探員動作</strong>：找出中空骨管丈量繫繩，量出整條長度等於骨管的幾倍（取整數）。
+            </div>
+          </div>
+          <div class="riddle-ans-row">
+            <span>👉 密碼第 1 碼 ＝</span>
+            <span class="ans-circle"></span>
+          </div>
+        </div>
+
+        <!-- 謎題 ②：逆行光陰 -->
+        <div class="riddle-box">
+          <div>
+            <div class="riddle-h">
+              <span>【謎題二】逆行光陰之鑑</span>
+              <span class="tag-mystery">鏡像視界</span>
+            </div>
+            <p class="riddle-p">
+              「光陰羅盤在此刻凝固於『午後三時三十分（15:30）』。<br>
+              但在達文西的密室中，眼見皆為虛妄，唯有真實的反面方為真理。<br>
+              自袋中取出那面『映照靈魂真實的平滑冰晶之鑑』置於羅盤前。<br>
+              直視鏡中逆行世界，長短雙針在左右倒置中，形影合聚成哪一個神聖數字？」
+            </p>
+            <div class="riddle-hint-line">
+              🎯 <strong>探員動作</strong>：拿平滑冰晶鏡照著 15:30 羅盤，觀察長短針在鏡中看起來像何數字。
+            </div>
+          </div>
+          <div class="riddle-ans-row">
+            <span>👉 密碼第 2 碼 ＝</span>
+            <span class="ans-circle"></span>
+          </div>
+        </div>
+
+        <!-- 謎題 ③：審判之秤 -->
+        <div class="riddle-box">
+          <div>
+            <div class="riddle-h">
+              <span>【謎題三】黃金審判之秤</span>
+              <span class="tag-mystery">天平配重</span>
+            </div>
+            <p class="riddle-p">
+              「審判橫木絕不容許絲毫偏頗。<br>
+              左端之盤已落下一枚『至尊千金之璽』，令天平深陷沈重。<br>
+              你必須在右盤放入一枚『半百之印』，並自袋中尋覓數枚『最小的拾階圓幣』相佐，<br>
+              直至兩端重歸絕對水平靜止！算一算，右盤之中最終承載了幾枚信物？」
+            </p>
+            <div class="riddle-hint-line">
+              🎯 <strong>探員動作</strong>：左盤放 1 枚一千；右盤放 1 枚五十，並加入數枚十元至剛好平衡，數出右盤總枚數。
+            </div>
+          </div>
+          <div class="riddle-ans-row">
+            <span>👉 密碼第 3 碼 ＝</span>
+            <span class="ans-circle"></span>
+          </div>
+        </div>
+
+        <!-- 謎題 ④：命運天輪 -->
+        <div class="riddle-box">
+          <div>
+            <div class="riddle-h">
+              <span>【謎題四】高懸命運旋輪</span>
+              <span class="tag-mystery">旋輪平衡</span>
+            </div>
+            <p class="riddle-p">
+              「高懸於橫樑上的『固定旋輪』只改換方向，不曾減損分毫重力。<br>
+              自袋中取出一根絲線穿過旋輪，一端垂掛那隻『金羽涉水之幼禽』；<br>
+              而在絲線的另一端，你需要一片接一片垂掛多少枚『六角寒冬冰晶之瓣』，<br>
+              方能使金羽生靈在空中達到平分秋色的靜止懸浮？」
+            </p>
+            <div class="riddle-hint-line">
+              🎯 <strong>探員動作</strong>：組裝固定旋輪，一端掛小鴨，另一端掛上雪花片直到水平平衡，計數雪花片數量。
+            </div>
+          </div>
+          <div class="riddle-ans-row">
+            <span>👉 密碼第 4 碼 ＝</span>
+            <span class="ans-circle"></span>
+          </div>
+        </div>
+
+        <!-- 謎題 ⑤：琉璃浮舟 -->
+        <div class="riddle-box">
+          <div>
+            <div class="riddle-h">
+              <span>【謎題五】琉璃浮舟之泉</span>
+              <span class="tag-mystery">浮力躍升</span>
+            </div>
+            <p class="riddle-p">
+              「透明的『空心琉璃之舟』正沉眠於乾涸的刻度之壇中。<br>
+              緩緩為壇中注入甘泉，直至小舟底艙輕盈浮離地面、完全漂浮於水波之上！<br>
+              凝視此刻甘泉達到的整數毫升刻度——<br>
+              將該刻度數值的十位與個位『拆開雙生相加』，合而為一的真理數字為何？」
+            </p>
+            <div class="riddle-hint-line">
+              🎯 <strong>探員動作</strong>：將空玻璃瓶置於大量杯中注水，直到瓶子漂浮，記錄毫升刻度並拆開十位與個位相加。
+            </div>
+          </div>
+          <div class="riddle-ans-row">
+            <span>👉 密碼第 5 碼 ＝</span>
+            <span class="ans-circle"></span>
+          </div>
+        </div>
+
+        <!-- 謎題 ⑥：三星法陣 -->
+        <div class="riddle-box">
+          <div>
+            <div class="riddle-h">
+              <span>【謎題六】三星幾何法陣</span>
+              <span class="tag-mystery">幾何連星</span>
+            </div>
+            <p class="riddle-p">
+              「喚醒大、中、小三尊『古老齒刻旋盤』依序安置於刻度界碑上。<br>
+              觀察各旋盤——將盤面星穴逆時針旋轉至最貼近界碑上最近的數字固定，<br>
+              在外圈星穴處點下三枚星芒。拿筆將三點連成三角法陣，<br>
+              以界碑丈量此陣『最長的一條光之稜線』，長度幾何？」
+            </p>
+            <div class="riddle-hint-line">
+              🎯 <strong>探員動作</strong>：將三顆齒輪置於尺上對齊固定，逆旋星穴點三點連成三角形，拿尺量最長邊長度。
+            </div>
+          </div>
+          <div class="riddle-ans-row">
+            <span>👉 密碼第 6 碼 ＝</span>
+            <span class="ans-circle"></span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 謎題 ⑦：全幅跨欄（真理之門終局任務） -->
+      <div class="riddle-seven-box">
+        <div class="seven-left">
+          <div class="seven-title">【謎題七】真理之門終局解密（大螢幕終端機突破）</div>
+          <p class="seven-desc">
+            全桌特工匯整前六道機關破譯所得之神聖數字，由隊長持手稿前往教室前台，在電子白板終端機鍵入六位數真理金鑰。但切記——<strong>只要按錯一次，系統立刻警報並鎖定 15 秒</strong>！全桌確認無誤後再按驗證！
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 正面底部：六位數密碼填寫欄 ＋ 老師核章 -->
+    <div class="master-code-row">
+      <div>
+        <div style="font-size:0.72rem; font-weight:800; color:#64748b;">MASTER CRYPTEX PROTOCOL</div>
+        <div style="font-size:0.98rem; font-weight:900; color:#0f172a;">🔐 最終 6 位數逃脫金鑰：</div>
+      </div>
+      <div class="slots-container">
+        <div class="slot-block"></div>
+        <div class="slot-block"></div>
+        <div class="slot-block"></div>
+        <span style="font-weight:900; font-size:1.4rem; color:#94a3b8;">－</span>
+        <div class="slot-block"></div>
+        <div class="slot-block"></div>
+        <div class="slot-block"></div>
+      </div>
+      <div class="stamp-area">
+        大螢幕過關核章<br>
+        (核章加榮譽 10分)
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- 📄 【A4 背面】：二十三項物件【原本名稱 vs 新命名名稱】對照表 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="page-sheet">
+    <div>
+      <!-- 背面標頭 -->
+      <div class="sheet-header">
+        <div class="header-sub">
+          <span>DA VINCI ARSENAL · 達文西神秘裝備庫清單</span>
+          <span style="color:#d97706;">【背面 · 二十三項信物對照】</span>
+        </div>
+        <div class="sheet-title">
+          <span>📦 材料工具袋二十三項物件明暗對照表</span>
+          <span class="badge-page">背面 · 清單表</span>
+        </div>
+      </div>
+
+      <div style="font-size:0.78rem; color:#475569; margin-bottom:4px; font-weight:700;">
+        💡 <strong>特工備查指引</strong>：袋中裝滿各色器具，此表揭示真實原本名稱與古卷神秘命名之對應，供開箱清點與辨識真偽：
+      </div>
+
+      <!-- 23 項完整表格 -->
+      <table class="items-table">
+        <thead>
+          <tr>
+            <th style="width: 5%;">序</th>
+            <th style="width: 25%;">實物原本名稱</th>
+            <th style="width: 30%;">達文西古卷神秘命名</th>
+            <th style="width: 8%;">數量</th>
+            <th style="width: 32%;">密室角色與任務說明</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>黃色籌碼 (面額 1000)</td>
+            <td><strong>🪙 千金太陽金璽</strong></td>
+            <td>2 枚</td>
+            <td><span class="role-real">🎯 真神道具</span>（謎題 ③ 天平左盤配重）</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>桃紅色籌碼 (面額 500)</td>
+            <td><strong>朱雀五百赤幣</strong></td>
+            <td>2 枚</td>
+            <td><span class="role-trap">🪤 迷霧干擾</span>（誤導學生拿來湊天平重量）</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>綠色籌碼 (面額 100)</td>
+            <td><strong>翡翠百草命運幣</strong></td>
+            <td>2 枚</td>
+            <td><span class="role-trap">🪤 迷霧干擾</span>（誤導學生拿來湊天平重量）</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>藍色籌碼 (面額 50)</td>
+            <td><strong>🪙 蔚藍半百海神印</strong></td>
+            <td>2 枚</td>
+            <td><span class="role-real">🎯 真神道具</span>（謎題 ③ 天平右盤配重）</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>粉紅色小籌碼 (面額 10)</td>
+            <td><strong>🪙 微芒拾階星幣</strong></td>
+            <td>6 枚</td>
+            <td><span class="role-real">🎯 真神道具</span>（謎題 ③ 天平右盤放 2 枚）</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>萬花尺綠色大齒輪</td>
+            <td><strong>⚙️ 大穹蒼星軌齒盤</strong></td>
+            <td>1 顆</td>
+            <td><span class="role-real">🎯 真神道具</span>（謎題 ⑥ 三角法陣頂點一）</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>萬花尺綠色中齒輪</td>
+            <td><strong>⚙️ 中旋律日行齒盤</strong></td>
+            <td>1 顆</td>
+            <td><span class="role-real">🎯 真神道具</span>（謎題 ⑥ 三角法陣頂點二）</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>萬花尺綠色小齒輪</td>
+            <td><strong>⚙️ 小微塵月輪齒盤</strong></td>
+            <td>1 顆</td>
+            <td><span class="role-real">🎯 真神道具</span>（謎題 ⑥ 三角法陣頂點三）</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>萬花尺金黃色外框板</td>
+            <td><strong>黃金日晷星空天宮座</strong></td>
+            <td>1 片</td>
+            <td><span class="role-trap">🪤 迷霧干擾</span>（誤導學生把齒輪裝在裡面轉）</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>金屬支架單滑輪</td>
+            <td><strong>🎡 阿特拉斯高懸天輪</strong></td>
+            <td>2 個</td>
+            <td><span class="role-real">🎯 1個真神道具</span>（謎題 ④ 定滑輪）；1個干擾</td>
+          </tr>
+          <tr>
+            <td>11</td>
+            <td>藍色 20cm 塑膠直尺</td>
+            <td><strong>📏 深藍精密量天界碑</strong></td>
+            <td>1 支</td>
+            <td><span class="role-real">🎯 真神道具</span>（謎題 ③ 天平橫木、⑥ 三角量尺）</td>
+          </tr>
+          <tr>
+            <td>12</td>
+            <td>透明斜口粗吸管</td>
+            <td><strong>🧪 中空引泉晶玉骨管</strong></td>
+            <td>1 支</td>
+            <td><span class="role-real">🎯 真神道具</span>（謎題 ① 繫繩度量單位）</td>
+          </tr>
+          <tr>
+            <td>13</td>
+            <td>銀色矩形平面鏡片</td>
+            <td><strong>🪞 逆光真理冰晶之鑑</strong></td>
+            <td>1 片</td>
+            <td><span class="role-real">🎯 真神道具</span>（謎題 ② 照 15:30 羅盤卡）</td>
+          </tr>
+          <tr>
+            <td>14</td>
+            <td>白色細棉繩</td>
+            <td><strong>🧵 阿麗亞娜深淵繫繩</strong></td>
+            <td>1 條</td>
+            <td><span class="role-real">🎯 真神道具</span>（謎題 ① 丈量長度、④ 滑輪牽引線）</td>
+          </tr>
+          <tr>
+            <td>15</td>
+            <td>彩色包膠金屬迴紋針</td>
+            <td><strong>莫比烏斯七彩蛇環</strong></td>
+            <td>10 支</td>
+            <td><span class="role-trap">🪤 迷霧干擾</span>（誤導學生拿來量長度或當掛勾）</td>
+          </tr>
+          <tr>
+            <td>16</td>
+            <td>粉紅色小型燕尾夾</td>
+            <td><strong>朱雀雙翼平衡夾</strong></td>
+            <td>1 個</td>
+            <td><span class="role-trap">🪤 迷霧干擾</span>（誤導學生夾在天平尺上固定）</td>
+          </tr>
+          <tr>
+            <td>17</td>
+            <td>水藍色小型燕尾夾</td>
+            <td><strong>青鸞雙翼定位錨</strong></td>
+            <td>1 個</td>
+            <td><span class="role-trap">🪤 迷霧干擾</span>（誤導學生夾在滑輪或杯緣）</td>
+          </tr>
+          <tr>
+            <td>18</td>
+            <td>黑色長條金屬平口夾</td>
+            <td><strong>玄武重力深淵鐵閘</strong></td>
+            <td>1 個</td>
+            <td><span class="role-trap">🪤 迷霧干擾</span>（誤導學生當作天平支點或重錘）</td>
+          </tr>
+          <tr>
+            <td>19</td>
+            <td>100ml 透明大量杯</td>
+            <td><strong>🏺 百毫升湧泉受洗壇</strong></td>
+            <td>1 個</td>
+            <td><span class="role-real">🎯 真神道具</span>（謎題 ⑤ 裝水 60ml 浮起小瓶）</td>
+          </tr>
+          <tr>
+            <td>20</td>
+            <td>透明小量杯</td>
+            <td><strong>微露聚水滴漏盞</strong></td>
+            <td>1 個</td>
+            <td><span class="role-trap">🪤 迷霧干擾</span>（誤導學生拿小杯裝水放瓶子）</td>
+          </tr>
+          <tr>
+            <td>21</td>
+            <td>螺口條紋玻璃小瓶</td>
+            <td><strong>⛵ 黑冕封印琉璃小舟</strong></td>
+            <td>1 瓶</td>
+            <td><span class="role-real">🎯 真神道具</span>（謎題 ⑤ 浮水琉璃瓶）</td>
+          </tr>
+          <tr>
+            <td>22</td>
+            <td>黃色橡膠小鴨</td>
+            <td><strong>🦆 金羽鳴啼涉水神獸</strong></td>
+            <td>1 隻</td>
+            <td><span class="role-real">🎯 真神道具</span>（謎題 ④ 定滑輪秤重生物）</td>
+          </tr>
+          <tr>
+            <td>23</td>
+            <td>紫色八角雪花片積木</td>
+            <td><strong>❄️ 紫晶八角寒冬冰魄</strong></td>
+            <td>10 片</td>
+            <td><span class="role-real">🎯 7片為真道具</span>（謎題 ④ 平衡砝碼）；3片干擾</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 背面底部署名 -->
+    <div style="font-size:0.75rem; color:#64748b; font-weight:800; border-top:1px dashed #cbd5e1; padding-top:4px; display:flex; justify-content:space-between;">
+      <span>STEAM MAKER CLUB · 達文西密室逃脫工具袋</span>
+      <span>請全組共同保管道具，通關後全數清點歸還工具袋</span>
+    </div>
+  </div>
+
+</body>
+</html>
